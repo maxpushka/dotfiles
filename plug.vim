@@ -10,7 +10,8 @@ Plug 'cohama/lexima.vim'
 Plug 'AndrewRadev/tagalong.vim'
 
 if has("nvim")
-  " Plug 'neovim/nvim-lspconfig' " language servers
+  Plug 'neovim/nvim-lspconfig' " 
+
   " Plug 'nvim-lua/completion-nvim' " completion for language servers
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
