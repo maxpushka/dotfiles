@@ -10,10 +10,9 @@ Plug 'cohama/lexima.vim'
 Plug 'AndrewRadev/tagalong.vim'
 
 if has("nvim")
-  Plug 'neovim/nvim-lspconfig' " 
-
-  " Plug 'nvim-lua/completion-nvim' " completion for language servers
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'nvim-lua/completion-nvim' " completion and language servers
 
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
@@ -24,9 +23,6 @@ if has("nvim")
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope.nvim'
 endif
-
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 call plug#end()
 

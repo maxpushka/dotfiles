@@ -8,7 +8,8 @@ EOF
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
-local protocol = require'vim.lsp.protocol'
+local protocol = require('vim.lsp.protocol')
+local lspinstall = require('lspinstall')
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -49,7 +50,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[augroup END]]
   end
 
-  --require'completion'.on_attach(client, bufnr)
+  require'completion'.on_attach(client, bufnr)
 
   --protocol.SymbolKind = { }
   protocol.CompletionItemKind = {
@@ -81,14 +82,41 @@ local on_attach = function(client, bufnr)
   }
 end
 
-nvim_lsp.flow.setup {
-  on_attach = on_attach
-}
+local function setup_servers()
+  lspinstall.setup() -- important
+  local servers = lspinstall.installed_servers()
+  for _, server in pairs(servers) do
+    if server == "html" then
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      
+      nvim_lsp.html.setup {
+        capabilities = capabilities,
+        on_attach = on_attach
+      }
+    elseif server == "css" then
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      
+      nvim_lsp.cssls.setup {
+        capabilities = capabilities,
+        on_attach = on_attach
+      }
+    else
+      nvim_lsp[server].setup {
+        on_attach = on_attach
+      }
+    end
+  end
+end
 
-nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
-  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },
-}
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+lspinstall.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
 
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,

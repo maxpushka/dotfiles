@@ -1,4 +1,4 @@
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-json', 'coc-css', 'coc-html', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-markdownlint', 'coc-git']
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-json', 'coc-css', 'coc-html', 'coc-pyright', 'coc-sh', 'coc-snippets', 'coc-markdownlint' ]
 set updatetime=100
 
 " Use tab for trigger completion with characters ahead and navigate.
