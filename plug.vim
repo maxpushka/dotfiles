@@ -14,6 +14,9 @@ if has("nvim")
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'nvim-lua/completion-nvim' " completion and language servers
 
+  Plug 'ternjs/tern_for_vim'
+  Plug 'preservim/tagbar'
+
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'folke/lsp-colors.nvim'
