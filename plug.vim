@@ -12,17 +12,16 @@ Plug 'AndrewRadev/tagalong.vim'
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'
   Plug 'kabouzeid/nvim-lspinstall'
-  Plug 'nvim-lua/completion-nvim' " completion and language servers
-
-  Plug 'ternjs/tern_for_vim'
-  Plug 'preservim/tagbar'
+  Plug 'nvim-lua/completion-nvim' " lsp completion and language servers
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " syntax parsers and highlighters
+  Plug 'nvim-treesitter/playground'
+  Plug 'ThePrimeagen/refactoring.nvim' " requires 'nvim-treesitter' and 'plenary.nvim'
 
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'folke/lsp-colors.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'nvim-lua/plenary.nvim' " dependancy of popup
+  Plug 'nvim-lua/plenary.nvim' " requires 'popup.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope.nvim'
 endif
