@@ -16,6 +16,7 @@ if has("nvim")
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " syntax parsers and highlighters
   Plug 'nvim-treesitter/playground'
   Plug 'ThePrimeagen/refactoring.nvim' " requires 'nvim-treesitter' and 'plenary.nvim'
+  Plug 'preservim/nerdcommenter'
 
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
@@ -24,6 +25,7 @@ if has("nvim")
   Plug 'nvim-lua/plenary.nvim' " requires 'popup.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " requires golang installed
 endif
 
 call plug#end()
