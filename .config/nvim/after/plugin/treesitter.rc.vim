@@ -27,8 +27,12 @@ require'nvim-treesitter.configs'.setup {
     "css",
     "python",
     "c_sharp",
+    "c",
     "cpp",
     "cmake",
+    "dockerfile",
+    "regex",
+    "lua"
   },
 }
 
