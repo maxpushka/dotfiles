@@ -17,7 +17,6 @@ require'nvim-treesitter.configs'.setup {
     "tsx",
     "toml",
     "bash",
-    "php",
     "javascript",
     "typescript",
     "json",
@@ -32,7 +31,13 @@ require'nvim-treesitter.configs'.setup {
     "cmake",
     "dockerfile",
     "regex",
-    "lua"
+    "lua",
+    "query",
+    "jsdoc",
+    "latex",
+    "vim",
+    "ruby",
+    "go"
   },
 }
 
