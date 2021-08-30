@@ -6,7 +6,6 @@ call plug#begin()
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'cohama/lexima.vim'
 Plug 'AndrewRadev/tagalong.vim'
 
 if has("nvim")
@@ -17,6 +16,7 @@ if has("nvim")
   Plug 'nvim-treesitter/playground'
   Plug 'ThePrimeagen/refactoring.nvim' " requires 'nvim-treesitter' and 'plenary.nvim'
   Plug 'preservim/nerdcommenter'
+  Plug 'windwp/nvim-autopairs'
 
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
