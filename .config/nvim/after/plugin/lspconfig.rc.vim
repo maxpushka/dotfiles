@@ -23,12 +23,14 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
+
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   --buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   --buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -82,33 +84,14 @@ local on_attach = function(client, bufnr)
   }
 end
 
-local function setup_servers()
-  lspinstall.setup() -- important
-  local servers = lspinstall.installed_servers()
-  for _, server in pairs(servers) do
-    if server == "html" or server == "css" then
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      
-      nvim_lsp[server].setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
-    else
-      nvim_lsp[server].setup {
-        on_attach = on_attach
-      }
-    end
-  end
-end
+nvim_lsp.flow.setup {
+  on_attach = on_attach
+}
 
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
+}
 
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,
@@ -157,6 +140,7 @@ nvim_lsp.diagnosticls.setup {
       css = 'prettier',
       javascript = 'eslint_d',
       javascriptreact = 'eslint_d',
+
       json = 'prettier',
       scss = 'prettier',
       less = 'prettier',
@@ -179,5 +163,33 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
   }
 )
+
+local function setup_servers()
+  lspinstall.setup() -- important
+  local servers = lspinstall.installed_servers()
+  for _, server in pairs(servers) do
+    if server == "html" or server == "css" then
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+      nvim_lsp[server].setup {
+        capabilities = capabilities,
+        on_attach = on_attach
+      }
+    else
+      nvim_lsp[server].setup {
+        on_attach = on_attach
+      }
+    end
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+lspinstall.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
 
 EOF

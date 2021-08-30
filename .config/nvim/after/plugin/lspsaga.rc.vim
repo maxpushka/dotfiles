@@ -16,7 +16,7 @@ EOF
 nnoremap <silent> <C-j> <Cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> <C-J> <Cmd>Lspsaga diagnostic_jump_prev<CR>
 
-nnoremap <silent><space>k <Cmd>Lspsaga hover_doc<CR>
+nnoremap <silent>K <Cmd>Lspsaga hover_doc<CR>
 inoremap <silent><C-k> <Cmd>Lspsaga signature_help<CR>
 
 nnoremap <silent><Space>fu <Cmd>Lspsaga lsp_finder<CR>
