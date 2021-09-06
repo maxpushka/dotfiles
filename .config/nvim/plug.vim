@@ -6,7 +6,6 @@ call plug#begin()
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'AndrewRadev/tagalong.vim'
 
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'
@@ -17,8 +16,9 @@ if has("nvim")
   Plug 'ThePrimeagen/refactoring.nvim' " requires 'nvim-treesitter' and 'plenary.nvim'
   Plug 'preservim/nerdcommenter'
   Plug 'windwp/nvim-autopairs'
-  Plug 'Yggdroot/indentLine'
-  Plug 'p00f/nvim-ts-rainbow'
+  Plug 'Yggdroot/indentLine' " display indentation levels
+  Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
+  Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
 
   Plug 'hoob3rt/lualine.nvim'
   Plug 'glepnir/lspsaga.nvim'
