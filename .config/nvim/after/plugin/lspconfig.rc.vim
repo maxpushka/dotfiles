@@ -6,6 +6,13 @@ lua << EOF
 --vim.lsp.set_log_level("debug")
 EOF
 
+function GoToDefinitionInNewTab()
+	let save_cursor = getcurpos()
+	tabedit %
+	call setpos('.', save_cursor)
+	lua vim.lsp.buf.definition()
+endfunction
+
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
@@ -27,6 +34,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<space>gd', '<Cmd>call GoToDefinitionInNewTab()<CR>', opts)
   --buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   --buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
