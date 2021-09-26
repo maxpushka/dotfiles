@@ -42,7 +42,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
@@ -99,8 +99,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias {v,nvim}="$HOME/.nvim.appimage"
+alias {v,nvim}="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
+# exa aliases:
+alias ls="exa --icons"
+alias l="ls -lah --git"
+alias lt="l --tree"
 
