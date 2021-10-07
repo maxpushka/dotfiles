@@ -99,12 +99,16 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias {v,nvim}="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
+
 # exa aliases:
 alias ls="exa --icons"
 alias l="ls -lah --git"
 alias lt="l --tree"
+
+alias {cat,bat}="batcat"
 
