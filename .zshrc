@@ -106,7 +106,7 @@ alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
 
 # exa aliases:
-alias ls="exa --icons"
+alias ls="exa --icons --sort=type"
 alias l="ls -lah --git"
 alias lt="l --tree"
 
