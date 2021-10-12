@@ -110,4 +110,4 @@ alias ls="exa --icons"
 alias l="ls -lah --git"
 alias lt="l --tree"
 
-alias {cat,bat}="batcat"
+alias bat="batcat"
