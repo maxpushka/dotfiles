@@ -111,3 +111,8 @@ alias l="ls -lah --git"
 alias lt="l --tree"
 
 alias bat="batcat"
+
+if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
+  tmux new-session -A -s main;
+fi
+
