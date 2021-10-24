@@ -1,0 +1,39 @@
+{
+  "languageserver": {
+    "solang": {
+      "command": "solang --language-server",
+      "filetypes": ["solidity", "sol"],
+      "rootPatterns": [".git/"]
+    }
+  },
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "suggest.completionItemKindLabels": {
+    "keyword": "",
+    "variable": "",
+    "value": "",
+    "operator": "ﬦ",
+    "function": "",
+    "reference": "",
+    "constant": "",
+    "method": "",
+    "struct": "",
+    "class": "",
+    "interface": "ﰮ",
+    "text": "",
+    "enum": "",
+    "enumMember": "",
+    "module": "",
+    "color": "",
+    "property": "",
+    "field": "",
+    "unit": "",
+    "event": "",
+    "file": "",
+    "folder": "",
+    "snippet": "﬌",
+    "typeParameter": "",
+    "default": ""
+  }
+}
