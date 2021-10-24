@@ -5,12 +5,6 @@ nnoremap <S-C-p> "0p
 nnoremap <leader>d "_d
 nnoremap x "_x
 
-" Home/End
-nnoremap <Home> ^
-nnoremap <kHome> ^
-nnoremap <End> $
-nnoremap <kEnd> $
-
 " Increment/decrement
 nnoremap + <C-a>
 nnoremap - <C-x>
