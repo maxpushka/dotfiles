@@ -8,12 +8,21 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 if has("nvim")
-  "Plug 'neovim/nvim-lspconfig'
-  "Plug 'kabouzeid/nvim-lspinstall'
-  "Plug 'nvim-lua/completion-nvim' " lsp completion and language servers
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
 
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'fannheyward/telescope-coc.nvim'
+  " nvim-cmp
+  Plug 'wbthomason/packer.nvim'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+    " For luasnip users.
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+
+  " coc
+  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  "Plug 'fannheyward/telescope-coc.nvim'
 
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " syntax parsers and highlighters
   Plug 'nvim-treesitter/playground'
