@@ -110,7 +110,13 @@ alias ls="exa --icons --sort=type"
 alias l="ls -lah --git"
 alias lt="l --tree"
 
-alias bat="batcat"
+# exlorer function
+e () {
+  for dir in "$@"
+  do
+    explorer.exe `wslpath -w "${PWD}/${dir}"`;
+  done
+}
 
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
