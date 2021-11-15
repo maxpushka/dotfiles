@@ -112,8 +112,10 @@ alias lt="l --tree"
 
 # exlorer function
 e () {
-  for dir in "$@"
-  do
+  if [ $# -eq 0 ]; then
+    explorer.exe `wslpath -w "${PWD}/${dir}"`;
+  fi
+  for dir in "$@"; do
     explorer.exe `wslpath -w "${PWD}/${dir}"`;
   done
 }
