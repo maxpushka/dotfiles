@@ -33,6 +33,9 @@ if has("nvim")
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
   Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
 
+  Plug 'preservim/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'hoob3rt/lualine.nvim'
   "Plug 'tami5/lspsaga.nvim' "Plug 'glepnir/lspsaga.nvim' " requires 'neovim/nvim-lspconfig'
