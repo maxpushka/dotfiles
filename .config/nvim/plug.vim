@@ -43,7 +43,7 @@ if has("nvim")
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'nvim-lua/plenary.nvim' " requires 'popup.nvim'
   Plug 'nvim-lua/popup.nvim'
-  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " requires golang installed
+  Plug 'norcalli/nvim-colorizer.lua'
 endif
 
 call plug#end()
