@@ -2,7 +2,8 @@ nnoremap <silent> ,e :NERDTreeToggle<CR>
 
 " Start NERDTree when Vim is started without file arguments.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') |
+  \ execute 'NERDTreeToggle' | endif
 
 " Start NERDTree when Vim starts with a directory argument.
 autocmd StdinReadPre * let s:std_in=1
@@ -21,5 +22,8 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 let g:plug_window = 'noautocmd vertical topleft new' " for vim-plug users
 
 " Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+autocmd BufWinEnter * if getcmdwintype() != '' | 
+  \ execute 'NERDTreeMirror' | endif
 
+" Display hidden files by default
+let NERDTreeShowHidden=1

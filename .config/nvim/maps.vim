@@ -17,6 +17,15 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" Surround text
+vnoremap ( xi()<Esc>P
+vnoremap [ xi[]<Esc>P
+vnoremap { xi{}<Esc>P
+vnoremap < xi<><Esc>P
+vnoremap " xi""<Esc>P
+vnoremap ' xi''<Esc>P
+vnoremap ` xi``<Esc>P
+
 " Select all
 nmap <C-a> gg<S-v>G
 
