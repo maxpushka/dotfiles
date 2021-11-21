@@ -9,7 +9,7 @@ Plug 'tpope/vim-rhubarb'
 
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'
-  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'williamboman/nvim-lsp-installer'
 
   " nvim-cmp
   Plug 'wbthomason/packer.nvim'
@@ -20,21 +20,16 @@ if has("nvim")
   Plug 'L3MON4D3/LuaSnip'
   Plug 'saadparwaiz1/cmp_luasnip'
 
-  " coc
-  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  "Plug 'fannheyward/telescope-coc.nvim'
-
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " syntax parsers and highlighters
   Plug 'nvim-treesitter/playground'
-
   Plug 'preservim/nerdcommenter'
   Plug 'windwp/nvim-autopairs'
   Plug 'Yggdroot/indentLine' " display indentation levels
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
   Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
 
-  Plug 'preservim/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
+  Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeMirror'] }
+  Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeMirror'] }
 
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'hoob3rt/lualine.nvim'
@@ -47,4 +42,3 @@ if has("nvim")
 endif
 
 call plug#end()
-

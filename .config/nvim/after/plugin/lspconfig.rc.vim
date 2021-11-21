@@ -16,7 +16,11 @@ endfunction
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
-local lspinstall = require('lspinstall')
+local lsp_installer = require('nvim-lsp-installer')
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -89,9 +93,12 @@ local on_attach = function(client, bufnr)
   }
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+lsp_installer.on_server_ready(function(server)
+  server:setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+end)
 
 nvim_lsp.flow.setup {
   on_attach = on_attach,
@@ -176,28 +183,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local function setup_servers()
-  lspinstall.setup() -- important
-  local servers = lspinstall.installed_servers()
-  for _, server in pairs(servers) do
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-    nvim_lsp[server].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-  end
-end
-
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+---- hrsh7th/nvim-cmp setup ----
 
 local use = require('packer').use
 require('packer').startup(function()
