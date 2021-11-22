@@ -28,8 +28,8 @@ if has("nvim")
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
   Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
 
-  Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeMirror'] }
-  Plug 'ryanoasis/vim-devicons', { 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeMirror'] }
+  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'hoob3rt/lualine.nvim'
