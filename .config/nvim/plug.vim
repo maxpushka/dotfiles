@@ -8,6 +8,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 if has("nvim")
+  " lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/nvim-lsp-installer'
 
@@ -24,9 +25,11 @@ if has("nvim")
   Plug 'nvim-treesitter/playground'
   Plug 'preservim/nerdcommenter'
   Plug 'windwp/nvim-autopairs'
+  Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
   Plug 'Yggdroot/indentLine' " display indentation levels
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
-  Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
+  Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-surround'
 
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons

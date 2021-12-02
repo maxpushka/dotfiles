@@ -12,8 +12,10 @@ set nocompatible
 set number relativenumber
 set mouse=a
 syntax enable
-set fileencodings=utf-8,sjis,euc-jp,latin
+set fileencodings=utf-8,sjis,euc-jp,latin,cp1251,koi8-r,cp866
 set encoding=utf-8
+set guifont=*
+set guifontwide=*
 set title
 set autoindent
 set background=dark
