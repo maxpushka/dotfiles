@@ -1,7 +1,10 @@
 nnoremap <silent> ,e <cmd>NvimTreeToggle<CR>
 
 lua << EOF
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+local status, nvim_tree = pcall(require, "nvim-tree")
+if (not status) then return end
+
+local tree_cb = require('nvim-tree.config').nvim_tree_callback
 -- default mappings
 local list = {
   { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
@@ -38,7 +41,7 @@ local list = {
   { key = "g?",                           cb = tree_cb("toggle_help") },
 }
 
-require'nvim-tree'.setup{
+nvim_tree.setup{
   view = {
     mappings = {
       custom_only = true,
