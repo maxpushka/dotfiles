@@ -28,7 +28,7 @@ if has("nvim")
   Plug 'windwp/nvim-ts-autotag' " auto close and auto rename html tag
   Plug 'Yggdroot/indentLine' " display indentation levels
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
-  Plug 'airblade/vim-gitgutter'
+  Plug 'lewis6991/gitsigns.nvim' " requires 'plenary.nvim'
   Plug 'tpope/vim-surround'
 
   Plug 'kyazdani42/nvim-tree.lua'
