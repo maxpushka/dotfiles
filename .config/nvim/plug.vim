@@ -6,6 +6,7 @@ call plug#begin()
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'arcticicestudio/nord-vim'
 
 if has("nvim")
   " lsp
@@ -31,6 +32,8 @@ if has("nvim")
   Plug 'p00f/nvim-ts-rainbow' " bracket colorizer
   Plug 'lewis6991/gitsigns.nvim' " requires 'plenary.nvim'
   Plug 'tpope/vim-surround'
+  Plug 'romgrk/nvim-treesitter-context'
+  Plug 'simrat39/symbols-outline.nvim'
 
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'kyazdani42/nvim-web-devicons' " for file icons
