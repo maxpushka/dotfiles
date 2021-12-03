@@ -124,3 +124,4 @@ if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
 
+test -r "$HOME/.sources" && source "$HOME/.sources"
