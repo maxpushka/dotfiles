@@ -1,11 +1,7 @@
-nnoremap <silent> ,e <cmd>NvimTreeToggle<CR>
-
-lua << EOF
 local status, nvim_tree = pcall(require, "nvim-tree")
 if (not status) then return end
 
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
--- default mappings
 local list = {
   { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
   { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
@@ -42,6 +38,21 @@ local list = {
 }
 
 nvim_tree.setup{
+  auto_close = true,
+  update_focused_file = {
+    enable      = true,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
   view = {
     mappings = {
       custom_only = true,
@@ -49,4 +60,5 @@ nvim_tree.setup{
       }
     }
 }
-EOF
+
+vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})

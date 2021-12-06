@@ -5,9 +5,9 @@ if (not status) then return end
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'solarized_dark',
-    section_separators = {'', ''},
-    component_separators = {'', ''},
+    theme = 'nord',
+    section_separators = { left = '', right = '' },
+    component_separators = { left = '', right = '' },
     disabled_filetypes = {}
   },
   sections = {
@@ -21,7 +21,6 @@ lualine.setup {
     lualine_x = {
       { 'diagnostics', sources = {"nvim_lsp"}, symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '} },
       'encoding',
-
       'filetype'
     },
     lualine_y = {'progress'},
@@ -39,6 +38,13 @@ lualine.setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { require('tabline').tabline_buffers },
+    lualine_x = { require('tabline').tabline_tabs },
+    lualine_y = {},
+    lualine_z = {}
+  },  
   extensions = {'fugitive'}
 }

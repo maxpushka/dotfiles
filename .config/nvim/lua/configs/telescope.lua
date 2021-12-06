@@ -1,17 +1,22 @@
-if !exists('g:loaded_telescope') | finish | endif
+local status, telescope = pcall(require, "telescope")
+if (not status) then return end
 
-nnoremap <silent> ;f <cmd>Telescope find_files<cr>
-nnoremap <silent> ;e <cmd>Telescope file_browser<cr>
-nnoremap <silent> ;g <cmd>Telescope live_grep<cr>
-nnoremap <silent> \\ <cmd>Telescope buffers<cr>
-nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+-- Mappings.
+local function set_keymap(...) vim.api.nvim_set_keymap(...) end
+local opts = { noremap=true, silent=true }
 
-lua << EOF
+set_keymap('n', ';f', '<cmd>Telescope find_files<cr>', opts)
+set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>', opts)
+set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
+set_keymap('n', '\\\\', '<cmd>Telescope buffers<cr>', opts)
+set_keymap('n', ';;', '<cmd>Telescope help_tags<cr>', opts)
+set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
+
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 -- Global remapping
 ------------------------------
-require('telescope').setup{
+telescope.setup{
   defaults = {
     mappings = {
       n = {
@@ -68,5 +73,5 @@ require('telescope').setup{
     },
   },
 }
-EOF
 
+telescope.load_extension('project')
