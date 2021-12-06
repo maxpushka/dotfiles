@@ -1,3 +1,4 @@
+vim.cmd([[
 " Status line
 if !exists('*fugitive#statusline')
   set statusline=%F\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}[L%l/%L,C%03v]
@@ -7,3 +8,4 @@ endif
 
 cnoreabbrev g Git
 cnoreabbrev gopen GBrowse
+]])

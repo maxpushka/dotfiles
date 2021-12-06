@@ -1,26 +1,100 @@
-if !exists('g:lspconfig')
-  finish
-endif
+local status, nvim_lsp = pcall(require, 'lspconfig')
+if (not status) then return end
 
-lua << EOF
 --vim.lsp.set_log_level("debug")
-EOF
 
+vim.cmd([[
 function GoToDefinitionInNewTab()
 	let save_cursor = getcurpos()
 	tabedit %
 	call setpos('.', save_cursor)
 	lua vim.lsp.buf.definition()
 endfunction
+]])
 
-lua << EOF
-local nvim_lsp = require('lspconfig')
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menu,menuone,noselect'
+
+-- nvim-cmp setup
 local protocol = require('vim.lsp.protocol')
 local lsp_installer = require('nvim-lsp-installer')
+local cmp = require('cmp')
+local luasnip = require('luasnip') -- luasnip setup
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'calc' },
+    { name = 'emoji' },
+    { name = 'spell' },
+    { name = 'look', keyword_length=2, option={convert_case=true, loud=true} },
+    { name = 'luasnip' },
+    { name = 'cmp_tabnine' },
+  }, {
+    { name = 'buffer' },
+  }),
+  formatting = {
+		format = function(entry, vim_item)
+      local source_mapping = {
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Lua]",
+        cmp_tabnine = "[TN]",
+        path = "[Path]",
+      }
+
+			vim_item.kind = require('lspkind').presets.default[vim_item.kind]
+			local menu = source_mapping[entry.source.name]
+			if entry.source.name == 'cmp_tabnine' then
+				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+					menu = entry.completion_item.data.detail .. ' ' .. menu
+				end
+				vim_item.kind = ''
+			end
+			vim_item.menu = menu
+			return vim_item
+		end
+	},
+}
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -64,34 +138,47 @@ local on_attach = function(client, bufnr)
   end
 
   --protocol.SymbolKind = { }
-  protocol.CompletionItemKind = {
-    '', -- Text
-    '', -- Method
-    '', -- Function
-    '', -- Constructor
-    '', -- Field
-    '', -- Variable
-    '', -- Class
-    'ﰮ', -- Interface
-    '', -- Module
-    '', -- Property
-    '', -- Unit
-    '', -- Value
-    '', -- Enum
-    '', -- Keyword
-    '﬌', -- Snippet
-    '', -- Color
-    '', -- File
-    '', -- Reference
-    '', -- Folder
-    '', -- EnumMember
-    '', -- Constant
-    '', -- Struct
-    '', -- Event
-    'ﬦ', -- Operator
-    '', -- TypeParameter
-  }
+  --protocol.CompletionItemKind = {
+    --'', -- Text
+    --'', -- Method
+    --'', -- Function
+    --'', -- Constructor
+    --'', -- Field
+    --'', -- Variable
+    --'', -- Class
+    --'ﰮ', -- Interface
+    --'', -- Module
+    --'', -- Property
+    --'', -- Unit
+    --'', -- Value
+    --'', -- Enum
+    --'', -- Keyword
+    --'﬌', -- Snippet
+    --'', -- Color
+    --'', -- File
+    --'', -- Reference
+    --'', -- Folder
+    --'', -- EnumMember
+    --'', -- Constant
+    --'', -- Struct
+    --'', -- Event
+    --'ﬦ', -- Operator
+    --'', -- TypeParameter
+  --}
 end
+
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+	max_lines = 1000;
+	max_num_results = 20;
+	sort = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '..';
+	ignored_file_types = { -- default is not to ignore
+		-- uncomment to ignore in lua:
+		-- lua = true
+	};
+})
 
 lsp_installer.on_server_ready(function(server)
   server:setup({
@@ -139,10 +226,10 @@ nvim_lsp.diagnosticls.setup {
       },
     },
     filetypes = {
-      javascript = 'eslint',
-      javascriptreact = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
+      javascript = 'eslint_d',
+      javascriptreact = 'eslint_d',
+      typescript = 'eslint_d',
+      typescriptreact = 'eslint_d',
     },
     formatters = {
       eslint_d = {
@@ -159,13 +246,11 @@ nvim_lsp.diagnosticls.setup {
       css = 'prettier',
       javascript = 'eslint_d',
       javascriptreact = 'eslint_d',
-
       json = 'prettier',
       scss = 'prettier',
       less = 'prettier',
       typescript = 'eslint_d',
       typescriptreact = 'eslint_d',
-      json = 'prettier',
       markdown = 'prettier',
     }
   }
@@ -183,66 +268,3 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
----- hrsh7th/nvim-cmp setup ----
-
-local use = require('packer').use
-require('packer').startup(function()
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-end)
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- luasnip setup
-local luasnip = require('luasnip')
-
--- nvim-cmp setup
-local cmp = require('cmp')
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
-  mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'buffer' },
-  },
-}
-
-EOF
