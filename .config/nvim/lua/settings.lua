@@ -48,7 +48,7 @@ vim.o.ai = true -- Auto indent
 vim.o.si = true -- Smart indent
 vim.o.wrap = false -- No Wrap lines
 vim.o.backspace = 'start,eol,indent'
-vim.o.foldmethod = 'expr'
+vim.o.foldmethod = 'indent'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel=20
 -- Finding files - Search down into subfolders

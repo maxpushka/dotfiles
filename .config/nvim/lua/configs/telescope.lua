@@ -8,8 +8,8 @@ local opts = { noremap=true, silent=true }
 set_keymap('n', ';f', '<cmd>Telescope find_files<cr>', opts)
 set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>', opts)
 set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
-set_keymap('n', '\\\\', '<cmd>Telescope buffers<cr>', opts)
-set_keymap('n', ';;', '<cmd>Telescope help_tags<cr>', opts)
+set_keymap('n', ';;', '<cmd>Telescope buffers<cr>', opts)
+set_keymap('n', '\\\\', '<cmd>Telescope help_tags<cr>', opts)
 set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
 
 local actions = require('telescope.actions')
