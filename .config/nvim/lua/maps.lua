@@ -44,11 +44,11 @@ vnoremap <silent> # :<C-U>
 
 ------------------------------
 -- Tabs
+map("n", "<S-Tab>", ":tabprev<Return>", {})
+map("n", "<Tab>", ":tabnext<Return>", {})
 
 -- Open current directory
 map("n", "et", ":tabedit", {})
-map("n", "<S-Tab>", ":tabprev<Return>", {})
-map("n", "<Tab>", ":tabnext<Return>", {})
 
 -------------------------------
 -- Windows
