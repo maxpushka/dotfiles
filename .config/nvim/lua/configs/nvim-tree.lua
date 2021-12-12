@@ -38,7 +38,7 @@ local list = {
 }
 
 nvim_tree.setup{
-  auto_close = true,
+  auto_close = false,
   update_focused_file = {
     enable      = true,
     update_cwd  = false,
@@ -57,8 +57,9 @@ nvim_tree.setup{
     mappings = {
       custom_only = true,
       list = list
-      }
-    }
+    },
+    relativenumber = true
+  }
 }
 
 vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})

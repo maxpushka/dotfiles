@@ -56,6 +56,7 @@ set_keymap("n", "et", ":tabedit", {})
 -- Split window
 set_keymap("n", "ss", ":split<Return><C-w>w", {})
 set_keymap("n", "sv", ":vsplit<Return><C-w>w", {})
+set_keymap("n", "sd", ":bdelete<CR>", {})
 -- Move window
 --map("nvo", "<Space>", "<C-w>w", {})
 set_keymap("", "s<left>", "<C-w>h", {})
