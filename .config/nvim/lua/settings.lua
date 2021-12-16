@@ -117,7 +117,7 @@ if vim.fn.has("unix") then
   if vim.fn.system("uname -s") == "Darwin\n" then
     require('macos.lua')
   elseif string.find(vim.fn.system("uname -r"), "microsoft") then
-    require('wsl')
+    --require('wsl')
   end
 end
 

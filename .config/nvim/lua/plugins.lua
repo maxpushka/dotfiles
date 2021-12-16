@@ -111,7 +111,9 @@ return require('packer').startup{function(use)
     config = function() require('configs.telescope') end
   }
   use {
-
+    "AckslD/nvim-neoclip.lua",
+    requires = {'tami5/sqlite.lua', module = 'sqlite'},
+    config = function() require('neoclip').setup() end,
   }
 
   use {
