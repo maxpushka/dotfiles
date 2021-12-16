@@ -11,6 +11,7 @@ set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
 set_keymap('n', ';b', '<cmd>Telescope buffers<cr>', opts)
 set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>', opts)
 set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
+set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>', opts)
 
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
