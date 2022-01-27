@@ -120,6 +120,16 @@ e () {
   done
 }
 
+# choose right git exectutable for WSL
+function git {
+  if [[ $PWD == *"/mnt/"* ]]; then
+    echo "[using Git for Windows]"
+    git.exe "$@"
+  else
+    /usr/bin/git "$@"
+  fi
+}
+
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
