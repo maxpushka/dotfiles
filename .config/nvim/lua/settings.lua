@@ -138,8 +138,6 @@ if vim.fn.exists("&termguicolors") and vim.fn.exists("&winblend") then
   --vim.g.neosolarized_termtrans = 1
   --vim.cmd('runtime ./colors/NeoSolarized.vim')
   --vim.cmd("colorscheme NeoSolarized")
-  -- Use Nord theme
-  -- vim.cmd('colorscheme nord')
 end
 
 --}}}

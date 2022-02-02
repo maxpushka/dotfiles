@@ -1,11 +1,12 @@
-if not vim.fn.exists('g:loaded_nvim_treesitter') then
-  print("Not loaded treesitter")
+local present, ts_configs = pcall(require, "nvim-treesitter.configs")
+if not present then
   return
 end
 
-require'nvim-treesitter.configs'.setup {
+ts_configs.setup {
   highlight = {
     enable = true,
+    use_languagetree = true,
     disable = {},
   },
   indent = {
@@ -48,5 +49,7 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
+
+require("nvim-treesitter.install").prefer_git = true
