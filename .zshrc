@@ -105,28 +105,46 @@ alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
 
-# exa aliases:
-alias ls="exa --icons --sort=type"
-alias l="ls -lah --git"
-alias lt="l --tree"
-
-# exlorer function
+# explorer function
 e () {
-  if [ $# -eq 0 ]; then
-    explorer.exe `wslpath -w "${PWD}/${dir}"`;
+  if [ -d "/mnt/c" ]; then
+    if [ $# -eq 0 ]; then
+      explorer.exe `wslpath -w "${PWD}/${dir}"`;
+    fi
+    for dir in "$@"; do
+      explorer.exe `wslpath -w "${PWD}/${dir}"`;
+    done
   fi
-  for dir in "$@"; do
-    explorer.exe `wslpath -w "${PWD}/${dir}"`;
-  done
+}
+
+function isWindows {
+  [[ $PWD == *"/mnt/"* ]]
 }
 
 # choose right git exectutable for WSL
 function git {
-  if [[ $PWD == *"/mnt/"* ]]; then
+  if isWindows; then
     echo "[using Git for Windows]"
     git.exe "$@"
   else
     /usr/bin/git "$@"
+  fi
+}
+
+alias ls=choose_ls
+function choose_ls {
+  if isWindows; then
+    powershell.exe dir
+  else
+    exa --icons --sort=type --git --color=always "$@"
+  fi
+}
+
+function lt {
+  if isWindows; then
+    tree "$@"
+  else
+    ls --tree -L 2 "$@"
   fi
 }
 
