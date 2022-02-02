@@ -73,4 +73,4 @@ set_keymap("n", "<C-w><right>", "<C-w>>", {})
 set_keymap("n", "<C-w><up>", "<C-w>+", {})
 set_keymap("n", "<C-w><down>", "<C-w>-", {})
 
-set_keymap("n", "<esc><esc>", ":noh<return>", {noremap = true})
+set_keymap("n", "<Esc>", ":noh<return>", {noremap = true})

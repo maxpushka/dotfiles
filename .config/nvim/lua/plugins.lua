@@ -229,13 +229,17 @@ return require('packer').startup{function(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-project.nvim' },
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-project.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+      {
+        "AckslD/nvim-neoclip.lua",
+        requires = {'tami5/sqlite.lua', module = 'sqlite'},
+        config = function() require('neoclip').setup() end,
+      },
+    },
     config = function() require('configs.telescope') end
-  }
-  use {
-    "AckslD/nvim-neoclip.lua",
-    requires = {'tami5/sqlite.lua', module = 'sqlite'},
-    config = function() require('neoclip').setup() end,
   }
 
   if PackerBootstrap then
