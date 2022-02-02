@@ -75,4 +75,7 @@ telescope.setup{
   },
 }
 
+-- call load_extension, somewhere after telescope setup function
 telescope.load_extension('project')
+telescope.load_extension('neoclip')
+telescope.load_extension('file_browser')
