@@ -9,9 +9,10 @@
 	co = checkout
 	d = diff
 	f = fetch
+  fa = fetch --all
 	lg = log --stat
 	p = push
-	pf = push --force
+  pf = push --force
 	rb = rebase
 	rs = restore
 	rss = restore --staged
