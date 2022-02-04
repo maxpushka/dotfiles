@@ -76,16 +76,17 @@ return require('packer').startup{function(use)
     'nvim-lualine/lualine.nvim',
     requires = {
       { 'kyazdani42/nvim-web-devicons', opt = true },
-      {
-        "SmiteshP/nvim-gps",
-        requires = "nvim-treesitter/nvim-treesitter",
-        config = function()
-          require("nvim-gps").setup()
-          -- set up is configs.lualine
-        end,
-      },
+      "SmiteshP/nvim-gps",
     },
     config = function() require('configs.lualine') end,
+  }
+  use {
+    "SmiteshP/nvim-gps",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-gps").setup()
+      -- set up is configs.lualine
+    end,
   }
   use {
     'akinsho/bufferline.nvim',
@@ -133,9 +134,9 @@ return require('packer').startup{function(use)
 
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }, -- optional, for file icon
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    config = function() require('configs.nvim-tree') end,
+    requires = { 'nvim-web-devicons', opt = true }, -- optional, for file icon
+    cmd = { "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
+    config = function() require('configs.nvimtree') end,
     setup = function()
       vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
     end,
