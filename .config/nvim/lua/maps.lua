@@ -47,9 +47,6 @@ vnoremap <silent> # :<C-U>
 set_keymap("n", "[t", ":tabprev<Return>", {})
 set_keymap("n", "]t", ":tabnext<Return>", {})
 
--- Open current directory
-set_keymap("n", "et", ":tabedit", {})
-
 -------------------------------
 -- Windows
 
