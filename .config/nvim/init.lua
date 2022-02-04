@@ -1,3 +1,3 @@
-require('settings')
+require('core')
 require('maps')
 require('plugins')

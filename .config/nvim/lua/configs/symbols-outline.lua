@@ -1,14 +1,10 @@
-vim.api.nvim_set_keymap("n", "<F9>", ":SymbolsOutline<CR>", {noremap = true})
-vim.api.nvim_set_keymap("i", "<F9>", ":SymbolsOutline<CR>", {noremap = true})
-vim.api.nvim_set_keymap("v", "<F9>", ":SymbolsOutline<CR>", {noremap = true})
-
 vim.g.symbols_outline = {
     highlight_hovered_item = true,
     show_guides = true,
     auto_preview = true,
     position = 'right',
     relative_width = true,
-    width = 30,
+    width = 50,
     show_numbers = false,
     show_relative_numbers = false,
     show_symbol_details = true,
