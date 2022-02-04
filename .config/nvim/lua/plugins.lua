@@ -133,7 +133,7 @@ return require('packer').startup{function(use)
 
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }, -- optional, for file icon
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     config = function() require('configs.nvim-tree') end,
     setup = function()
