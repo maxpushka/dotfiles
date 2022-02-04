@@ -107,7 +107,7 @@ nvim_tree.setup{
   view = {
     allow_resize = true,
     side = "left",
-    width = 25,
+    width = 40,
     hide_root_folder = true,
     mappings = {
       custom_only = true,
@@ -116,9 +116,7 @@ nvim_tree.setup{
     relativenumber = true
   },
   git = {
-    enable = false,
+    enable = true,
     ignore = false,
   },
 }
-
-vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})

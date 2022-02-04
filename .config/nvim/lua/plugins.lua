@@ -12,12 +12,11 @@ return require('packer').startup{function(use)
     event = "VimEnter",
   }
   use { 'lewis6991/impatient.nvim' }
-  -- use { 'nathom/filetype.nvim' }
+  use { 'nathom/filetype.nvim' }
   use {
     'nvim-lua/plenary.nvim',
     requires = { 'nvim-lua/popup.nvim' }
   }
-
 
   --- Git plugins ---
   use {
@@ -46,22 +45,15 @@ return require('packer').startup{function(use)
     end,
   }
 
-  --- UI & Theme plugins ---
-  use {
-    'arcticicestudio/nord-vim',
-    config = function()
-      vim.cmd("colorscheme nord")
-    end
-  }
-
+  --- UI & Theme plugins. Look & Feel ---
   use {
     'norcalli/nvim-base16.lua',
     requires = {'norcalli/nvim.lua'},
     after = "packer.nvim",
-    -- config = function()
-    --   base16 = require('base16')
-    --   base16(base16.themes["material-darker"], true)
-    -- end,
+    config = function()
+      base16 = require('base16')
+      base16(base16.themes["gruvbox-dark-soft"], true)
+    end,
   }
 
   use {
@@ -70,6 +62,35 @@ return require('packer').startup{function(use)
     config = function()
       require('configs.icons')
     end
+  }
+
+  use {
+    'norcalli/nvim-colorizer.lua',
+    event = "BufRead",
+    config = function()
+      require('configs.colorizer')
+    end,
+  }
+
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = {
+      { 'kyazdani42/nvim-web-devicons', opt = true },
+      {
+        "SmiteshP/nvim-gps",
+        requires = "nvim-treesitter/nvim-treesitter",
+        config = function()
+          require("nvim-gps").setup()
+          -- set up is configs.lualine
+        end,
+      },
+    },
+    config = function() require('configs.lualine') end,
+  }
+  use {
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require('configs.bufferline') end,
   }
 
   use {
@@ -99,30 +120,6 @@ return require('packer').startup{function(use)
   }
 
   use {
-    'norcalli/nvim-colorizer.lua',
-    event = "BufRead",
-    config = function()
-      require('configs.colorizer')
-    end
-  }
-
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = {
-      'kyazdani42/nvim-web-devicons', opt = true
-    },
-    config = function() require('configs.lualine') end
-  }
-  use {
-    'kdheepak/tabline.nvim',
-    config = function() require('configs.tabline') end,
-    requires = {
-      { 'hoob3rt/lualine.nvim', opt = true },
-      { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
-  }
-
-  use {
     'folke/lsp-colors.nvim',
     config = function()
       require("lsp-colors").setup({
@@ -131,20 +128,68 @@ return require('packer').startup{function(use)
         Information = "#0db9d7",
         Hint = "#10B981"
       })
-    end
+    end,
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    config = function() require('configs.nvim-tree') end,
+    setup = function()
+      vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+    end,
+  }
+
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    module = "telescope",
+    cmd = "Telescope",
+    setup = function()
+      local function set_keymap(...) vim.api.nvim_set_keymap(...) end
+      local opts = { noremap=true, silent=true }
+
+      set_keymap('n', ';f', '<cmd>Telescope find_files<cr>', opts)
+      set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>', opts)
+      set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
+      set_keymap('n', ';b', '<cmd>Telescope buffers<cr>', opts)
+      set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>', opts)
+      set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
+      set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>', opts)
+    end,
+    config = function() require('configs.telescope') end
+  }
+  use {
+    'nvim-telescope/telescope-project.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    {
+      "AckslD/nvim-neoclip.lua",
+      requires = {'tami5/sqlite.lua', module = 'sqlite'},
+      config = function() 
+        require('neoclip').setup{ enable_persistant_history = true } 
+      end,
+    },
+    requires = 'nvim-telescope/telescope.nvim',
+  }
+
+  use {
+    "folke/twilight.nvim",
+    config = function() require("twilight") end,
   }
 
   --- LSP stuff ---
   use {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("better_escape").setup()
-    end,
+    'neovim/nvim-lspconfig',
+    config = function() require('configs.lspconfig') end,
+    module = "lspconfig",
+    opt = true,
   }
 
-  use { 'onsails/lspkind-nvim' }
-  use { 'hrsh7th/nvim-cmp' }
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = { 'onsails/lspkind-nvim' },
+  }
   use {
     "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
     "hrsh7th/cmp-buffer", 'hrsh7th/cmp-path',
@@ -152,94 +197,108 @@ return require('packer').startup{function(use)
     'f3fora/cmp-spell', 'octaltree/cmp-look',
     'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
     'L3MON4D3/LuaSnip', -- Snippets plugin
-    after = 'hrsh7th/nvim-cmp',
+    requires = 'hrsh7th/nvim-cmp',
   }
   use {
     'tzachar/cmp-tabnine',
     run = './install.sh',
-    requires = 'hrsh7th/nvim-cmp'
+    requires = 'hrsh7th/nvim-cmp',
   }
   use {
     'williamboman/nvim-lsp-installer',
     requires = 'neovim/nvim-lspconfig',
-    config = function() require('configs.lspconfig') end,
   }
 
-  -- syntax parsers and highlighters
-  use {
+  use { -- syntax parsers and highlighters
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    -- event = "BufRead",
-    config = function()
-      require('configs.treesitter')
-    end,
+    config = function() require('configs.treesitter') end,
   }
-  use {
-    'nvim-treesitter/playground',
-    requires = {
-      'nvim-treesitter/nvim-treesitter'
-    },
-    cmd = {"TSPlaygroundToggle"},
-    config = function()
-      vim.api.nvim_set_keymap('n', '<F8>', ":TSPlaygroundToggle<CR>", {noremap=true})
-    end,
-  }
-  use {
+  use { -- tresitter plugins
     'windwp/nvim-ts-autotag',
     'p00f/nvim-ts-rainbow',
     'romgrk/nvim-treesitter-context',
-    -- event = "BufRead",
-    requires = {
-      'nvim-treesitter/nvim-treesitter'
-    }
-  }
-
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    {
+      'nvim-treesitter/playground',
+      cmd = 'TSPlaygroundToggle',
+      setup = function()
+        vim.api.nvim_set_keymap('n', '<F8>', ":TSPlaygroundToggle<CR>", {noremap=true})
+      end,
     },
-    config = function() require('configs.nvim-tree') end
-  }
-
-  use {
-    'preservim/nerdcommenter',
-    config = function() vim.cmd('filetype plugin on') end
-  }
-
-  use {
-    'windwp/nvim-autopairs',
-    after = 'nvim-cmp',
-    config = function() require('configs.autopairs') end
-  }
-  use { 'tpope/vim-surround' }
-
-  use {
-    "folke/twilight.nvim",
-    config = function() require("twilight") end
+    requires = 'nvim-treesitter/nvim-treesitter',
+    event = "BufRead",
   }
 
   use {
     'simrat39/symbols-outline.nvim',
+    cmd = "SymbolsOutline",
+    setup = function()
+      vim.api.nvim_set_keymap("n", ",s", ":SymbolsOutline<CR>", {noremap = true})
+      vim.api.nvim_set_keymap("i", ",s", ":SymbolsOutline<CR>", {noremap = true})
+      vim.api.nvim_set_keymap("v", ",s", ":SymbolsOutline<CR>", {noremap = true})
+    end,
     config = function() require('configs.symbols-outline') end,
     requires = {
-      {'kyazdani42/nvim-web-devicons', opt = true} -- for file icons
+      {'kyazdani42/nvim-web-devicons', opt = true}, -- for file icons
     },
   }
 
   use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-project.nvim',
-      'nvim-telescope/telescope-file-browser.nvim',
-      {
-        "AckslD/nvim-neoclip.lua",
-        requires = {'tami5/sqlite.lua', module = 'sqlite'},
-        config = function() require('neoclip').setup() end,
-      },
-    },
-    config = function() require('configs.telescope') end
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup{}
+
+      vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
+        {silent = true, noremap = true}
+      )
+      vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
+        {silent = true, noremap = true}
+      )
+    end,
+  }
+
+  --- Miscellaneous ---
+
+  use {
+    'famiu/bufdelete.nvim',
+    config = function ()
+      vim.api.nvim_set_keymap('n', 'sd', ":Bdelete<CR>", {noremap=true})
+    end,
+  }
+
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
+
+  use { 'tpope/vim-surround' }
+
+  
+  use {
+    'windwp/nvim-autopairs',
+    after = 'nvim-cmp',
+    config = function() require('configs.autopairs') end,
+  }
+
+  use {
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    config = function() require("better_escape").setup() end,
   }
 
   if PackerBootstrap then

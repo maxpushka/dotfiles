@@ -2,22 +2,13 @@ local status, telescope = pcall(require, "telescope")
 if (not status) then return end
 
 -- Mappings.
-local function set_keymap(...) vim.api.nvim_set_keymap(...) end
-local opts = { noremap=true, silent=true }
-
-set_keymap('n', ';f', '<cmd>Telescope find_files<cr>', opts)
-set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>', opts)
-set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
-set_keymap('n', ';b', '<cmd>Telescope buffers<cr>', opts)
-set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>', opts)
-set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
-set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>', opts)
 
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 -- Global remapping
 ------------------------------
 telescope.setup{
+  dynamic_preview_title = true,
   defaults = {
     mappings = {
       n = {

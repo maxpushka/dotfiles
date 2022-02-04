@@ -4,7 +4,7 @@ if executable(s:clip)
     augroup WSLYank
         autocmd!
 
-        autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
+        autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | iconv -f utf-8 -t utf-16le'.s:clip)
     augroup END
 end
 
