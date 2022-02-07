@@ -100,9 +100,10 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua require("goto-preview").goto_preview_definition()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua require("goto-preview").goto_preview_implementation()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua require("goto-preview").goto_preview_references()<CR>', opts)
+  buf_set_keymap('n', 'gc', '<cmd>lua require("goto-preview").close_all_win()<CR>', opts)
   buf_set_keymap('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<C-i>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('i', '<C-i>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
