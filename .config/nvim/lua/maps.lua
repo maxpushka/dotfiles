@@ -18,8 +18,8 @@ set_keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", {noremap = true})
 set_keymap("v", "<A-j>", ":m '>+1<CR>gv=gv",    {noremap = true})
 set_keymap("v", "<A-k>", ":m '<-2<CR>gv=gv",    {noremap = true})
 
--- Copy all contents of current buffer
-set_keymap("n", "<C-a>", "gg<S-v>Gy", {})
+set_keymap("n", "<C-a>", "gg<S-v>G", {})  -- Select all the content of current buffer
+set_keymap("n", "<C-c>", "gg<S-v>Gy", {}) -- Copy all the content of current buffer
 
 -- Save with root permission
 vim.cmd("command! W w !sudo tee > /dev/null %")

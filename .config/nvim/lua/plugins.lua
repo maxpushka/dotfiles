@@ -47,18 +47,22 @@ return require('packer').startup{function(use)
 
   --- UI & Theme plugins. Look & Feel ---
   use {
-    'norcalli/nvim-base16.lua',
-    requires = {'norcalli/nvim.lua'},
-    after = "packer.nvim",
-    config = function()
-      base16 = require('base16')
-      base16(base16.themes["gruvbox-dark-soft"], true)
-    end,
+    'arcticicestudio/nord-vim',
+    config = function() vim.cmd("colorscheme nord") end,
   }
+  -- use {
+  --   'norcalli/nvim-base16.lua',
+  --   requires = {'norcalli/nvim.lua'},
+  --   after = "packer.nvim",
+  --   config = function()
+  --     local base16 = require('base16')
+  --     base16(base16.themes["nord"], true)
+  --   end,
+  -- }
 
   use {
     'kyazdani42/nvim-web-devicons',
-    after = "nvim-base16.lua",
+    -- after = "nvim-base16.lua",
     config = function()
       require('configs.icons')
     end
@@ -76,17 +80,13 @@ return require('packer').startup{function(use)
     'nvim-lualine/lualine.nvim',
     requires = {
       { 'kyazdani42/nvim-web-devicons', opt = true },
-      "SmiteshP/nvim-gps",
+      {
+        "SmiteshP/nvim-gps",
+        requires = "nvim-treesitter/nvim-treesitter",
+      }
     },
+    after = "nvim-gps",
     config = function() require('configs.lualine') end,
-  }
-  use {
-    "SmiteshP/nvim-gps",
-    requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("nvim-gps").setup()
-      -- set up is configs.lualine
-    end,
   }
   use {
     'akinsho/bufferline.nvim',
@@ -111,6 +111,7 @@ return require('packer').startup{function(use)
           "TelescopeResults",
           "nvchad_cheatsheet",
           "lsp-installer",
+          "Dashboard",
           "",
         },
         buftype_exclude = { "terminal" },
@@ -138,7 +139,7 @@ return require('packer').startup{function(use)
     cmd = { "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
     config = function() require('configs.nvimtree') end,
     setup = function()
-      vim.api.nvim_set_keymap("n", ",e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n", ",e", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
     end,
   }
 
@@ -151,13 +152,15 @@ return require('packer').startup{function(use)
       local function set_keymap(...) vim.api.nvim_set_keymap(...) end
       local opts = { noremap=true, silent=true }
 
-      set_keymap('n', ';f', '<cmd>Telescope find_files<cr>', opts)
-      set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>', opts)
-      set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>', opts)
-      set_keymap('n', ';b', '<cmd>Telescope buffers<cr>', opts)
-      set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>', opts)
-      set_keymap('n', ';p', '<cmd>Telescope project<cr>', opts)
-      set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>', opts)
+      set_keymap('n', ';f',  '<cmd>Telescope find_files<cr>', opts)
+      set_keymap('n', ';e',  '<cmd>Telescope file_browser<cr>', opts)
+      set_keymap('n', ';g',  '<cmd>Telescope live_grep<cr>', opts)
+      set_keymap('n', ';b',  '<cmd>Telescope buffers<cr>', opts)
+      set_keymap('n', ';h',  '<cmd>Telescope help_tags<cr>', opts)
+      set_keymap('n', ';p',  '<cmd>Telescope project<cr>', opts)
+      set_keymap('n', ';y',  '<cmd>Telescope neoclip<cr>', opts)
+      set_keymap('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>', opts)
+      set_keymap('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>', opts)
     end,
     config = function() require('configs.telescope') end
   }
@@ -167,15 +170,17 @@ return require('packer').startup{function(use)
     {
       "AckslD/nvim-neoclip.lua",
       requires = {'tami5/sqlite.lua', module = 'sqlite'},
-      config = function() 
-        require('neoclip').setup{ enable_persistant_history = true } 
+      config = function()
+        require('neoclip').setup{ enable_persistant_history = true }
       end,
     },
+    'ThePrimeagen/git-worktree.nvim',
     requires = 'nvim-telescope/telescope.nvim',
   }
 
   use {
     "folke/twilight.nvim",
+    cmd = {"Twilight", "TwilightEnable", "TwilightDisable"},
     config = function() require("twilight") end,
   }
 
@@ -183,13 +188,15 @@ return require('packer').startup{function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function() require('configs.lspconfig') end,
-    module = "lspconfig",
-    opt = true,
   }
 
   use {
     'hrsh7th/nvim-cmp',
     requires = { 'onsails/lspkind-nvim' },
+  }
+  use {
+    'williamboman/nvim-lsp-installer',
+    requires = 'neovim/nvim-lspconfig',
   }
   use {
     "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
@@ -206,8 +213,28 @@ return require('packer').startup{function(use)
     requires = 'hrsh7th/nvim-cmp',
   }
   use {
-    'williamboman/nvim-lsp-installer',
-    requires = 'neovim/nvim-lspconfig',
+    "ray-x/lsp_signature.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      local default = {
+         bind = true,
+         doc_lines = 0,
+         floating_window = true,
+         fix_pos = true,
+         hint_enable = true,
+         hint_prefix = " ",
+         hint_scheme = "String",
+         hi_parameter = "Search",
+         max_height = 22,
+         max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+         handler_opts = {
+            border = "single", -- double, single, shadow, none
+         },
+         zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
+         padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
+      }
+      require('lsp_signature').setup(default)
+    end,
   }
 
   use { -- syntax parsers and highlighters
@@ -226,6 +253,30 @@ return require('packer').startup{function(use)
         vim.api.nvim_set_keymap('n', '<F8>', ":TSPlaygroundToggle<CR>", {noremap=true})
       end,
     },
+    {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+        {"nvim-lua/plenary.nvim"},
+        {"nvim-treesitter/nvim-treesitter"}
+      },
+      config = function ()
+        local function set_keymap(...) vim.api.nvim_set_keymap(...) end
+        local opts = {noremap = true, silent = true, expr = false}
+
+        require('refactoring').setup({})
+        vim.api.nvim_set_keymap(
+          "v",
+          "<leader>ff",
+          "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+          opts
+        )
+        -- Remaps for each of the four debug operations currently offered by the plugin
+        set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],         opts)
+        set_keymap("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], opts)
+        set_keymap("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],         opts)
+        set_keymap("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],          opts)
+      end,
+    },
     requires = 'nvim-treesitter/nvim-treesitter',
     event = "BufRead",
   }
@@ -235,8 +286,6 @@ return require('packer').startup{function(use)
     cmd = "SymbolsOutline",
     setup = function()
       vim.api.nvim_set_keymap("n", ",s", ":SymbolsOutline<CR>", {noremap = true})
-      vim.api.nvim_set_keymap("i", ",s", ":SymbolsOutline<CR>", {noremap = true})
-      vim.api.nvim_set_keymap("v", ",s", ":SymbolsOutline<CR>", {noremap = true})
     end,
     config = function() require('configs.symbols-outline') end,
     requires = {
@@ -271,6 +320,13 @@ return require('packer').startup{function(use)
     end,
   }
 
+  use {
+    'rmagatti/goto-preview',
+    config = function()
+      require('goto-preview').setup {}
+    end
+  }
+
   --- Miscellaneous ---
 
   use {
@@ -289,7 +345,6 @@ return require('packer').startup{function(use)
 
   use { 'tpope/vim-surround' }
 
-  
   use {
     'windwp/nvim-autopairs',
     after = 'nvim-cmp',
@@ -302,7 +357,70 @@ return require('packer').startup{function(use)
     config = function() require("better_escape").setup() end,
   }
 
+  use {
+    "karb94/neoscroll.nvim",
+    config = function()
+      require('neoscroll').setup()
+
+      local t = {}
+      -- Syntax: t[keys] = {function, {function arguments}}
+      t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '250'}}
+      t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+      t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '450'}}
+      t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450'}}
+      t['<C-y>'] = {'scroll', {'-0.10', 'false', '100'}}
+      t['<C-e>'] = {'scroll', { '0.10', 'false', '100'}}
+      t['zt']    = {'zt', {'250'}}
+      t['zz']    = {'zz', {'250'}}
+      t['zb']    = {'zb', {'250'}}
+
+      require('neoscroll.config').set_mappings(t)
+    end,
+  }
+
+  use {
+    "luukvbaal/stabilize.nvim",
+    config = function() require("stabilize").setup() end
+  }
+
+  use {
+    "Pocco81/AutoSave.nvim",
+    config = function()
+      local autosave = require("autosave")
+        autosave.setup{
+          enabled = true,
+          execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
+          events = {"InsertLeave", "TextChanged"},
+          conditions = {
+              exists = true,
+              filename_is_not = {},
+              filetype_is_not = {},
+              modifiable = true
+          },
+          write_all_buffers = false,
+          on_off_commands = true,
+          clean_command_line_interval = 0,
+          debounce_delay = 135,
+        }
+    end,
+  }
+
+  use { "Pocco81/TrueZen.nvim" }
+
+  use {
+    'glepnir/dashboard-nvim',
+    setup = function()
+      vim.api.nvim_set_keymap("n", "<leader>bm", ":DashboardJumpMarks <CR>", {})
+      vim.api.nvim_set_keymap("n", "<leader>fn", ":DashboardNewFile <CR>",   {}) -- basically create a new buffer
+      vim.api.nvim_set_keymap("n", "<leader>db", ":Dashboard <CR>",          {}) -- open dashboard
+      vim.api.nvim_set_keymap("n", "<leader>l",  ":SessionLoad <CR>",        {})
+      vim.api.nvim_set_keymap("n", "<leader>s",  ":SessionSave <CR>",        {})
+    end,
+    config = function() require('configs.dashboard') end,
+  }
+
   if PackerBootstrap then
     require('packer').sync()
   end
 end}
+

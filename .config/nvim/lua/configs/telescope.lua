@@ -51,8 +51,8 @@ telescope.setup{
               for _, winid in ipairs(winids) do
                 if vim.tbl_contains(tabwins, winid) then
                   local new_buf = vim.F.if_nil(table.remove(replacement_buffers),
-                 -- if no alternative available, create unlisted scratch buffer
-                                               vim.api.nvim_create_buf(false, true))
+                  -- if no alternative available, create unlisted scratch buffer
+                  vim.api.nvim_create_buf(false, true))
                   vim.api.nvim_win_set_buf(winid, new_buf)
                 end
               end
@@ -70,3 +70,5 @@ telescope.setup{
 telescope.load_extension('project')
 telescope.load_extension('neoclip')
 telescope.load_extension('file_browser')
+telescope.load_extension('git_worktree')
+telescope.load_extension('refactoring')
