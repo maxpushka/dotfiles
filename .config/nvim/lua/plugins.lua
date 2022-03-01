@@ -48,17 +48,17 @@ return require('packer').startup{function(use)
   --- UI & Theme plugins. Look & Feel ---
   use {
     'arcticicestudio/nord-vim',
-    config = function() vim.cmd("colorscheme nord") end,
+    -- config = function() vim.cmd("colorscheme nord") end,
   }
-  -- use {
-  --   'norcalli/nvim-base16.lua',
-  --   requires = {'norcalli/nvim.lua'},
-  --   after = "packer.nvim",
-  --   config = function()
-  --     local base16 = require('base16')
-  --     base16(base16.themes["nord"], true)
-  --   end,
-  -- }
+  use {
+    'norcalli/nvim-base16.lua',
+    requires = {'norcalli/nvim.lua'},
+    after = "packer.nvim",
+    config = function()
+      local base16 = require('base16')
+      base16(base16.themes["gruvbox-dark-hard"], true)
+    end,
+  }
 
   use {
     'kyazdani42/nvim-web-devicons',
@@ -111,13 +111,15 @@ return require('packer').startup{function(use)
           "TelescopeResults",
           "nvchad_cheatsheet",
           "lsp-installer",
-          "Dashboard",
           "",
         },
         buftype_exclude = { "terminal" },
         show_trailing_blankline_indent = false,
         show_first_indent_level = true,
+        show_current_context = true,
+        show_current_context_start = true,
       }
+      vim.cmd [[highlight IndentBlanklineIndent1 guifg=#2C323C gui=nocombine]]
     end
   }
 
@@ -136,11 +138,11 @@ return require('packer').startup{function(use)
   use {
     'kyazdani42/nvim-tree.lua',
     requires = { 'nvim-web-devicons', opt = true }, -- optional, for file icon
-    cmd = { "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
-    config = function() require('configs.nvimtree') end,
+    cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFocus' },
     setup = function()
-      vim.api.nvim_set_keymap("n", ",e", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n", ",e", "<Cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
     end,
+    config = function() require('configs.nvimtree') end,
   }
 
   use {
@@ -149,18 +151,18 @@ return require('packer').startup{function(use)
     module = "telescope",
     cmd = "Telescope",
     setup = function()
-      local function set_keymap(...) vim.api.nvim_set_keymap(...) end
+      local function map(...) vim.api.nvim_set_keymap(...) end
       local opts = { noremap=true, silent=true }
 
-      set_keymap('n', ';f',  '<cmd>Telescope find_files<cr>', opts)
-      set_keymap('n', ';e',  '<cmd>Telescope file_browser<cr>', opts)
-      set_keymap('n', ';g',  '<cmd>Telescope live_grep<cr>', opts)
-      set_keymap('n', ';b',  '<cmd>Telescope buffers<cr>', opts)
-      set_keymap('n', ';h',  '<cmd>Telescope help_tags<cr>', opts)
-      set_keymap('n', ';p',  '<cmd>Telescope project<cr>', opts)
-      set_keymap('n', ';y',  '<cmd>Telescope neoclip<cr>', opts)
-      set_keymap('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>', opts)
-      set_keymap('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>', opts)
+      map('n', ';f',  '<cmd>Telescope find_files<cr>', opts)
+      map('n', ';e',  '<cmd>Telescope file_browser<cr>', opts)
+      map('n', ';g',  '<cmd>Telescope live_grep<cr>', opts)
+      map('n', ';b',  '<cmd>Telescope buffers<cr>', opts)
+      map('n', ';h',  '<cmd>Telescope help_tags<cr>', opts)
+      map('n', ';p',  '<cmd>Telescope project<cr>', opts)
+      map('n', ';y',  '<cmd>Telescope neoclip<cr>', opts)
+      map('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>', opts)
+      map('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>', opts)
     end,
     config = function() require('configs.telescope') end
   }
@@ -171,7 +173,7 @@ return require('packer').startup{function(use)
       "AckslD/nvim-neoclip.lua",
       requires = {'tami5/sqlite.lua', module = 'sqlite'},
       config = function()
-        require('neoclip').setup{ enable_persistant_history = true }
+        require('neoclip').setup{ enable_persistent_history = true }
       end,
     },
     'ThePrimeagen/git-worktree.nvim',
@@ -260,7 +262,7 @@ return require('packer').startup{function(use)
         {"nvim-treesitter/nvim-treesitter"}
       },
       config = function ()
-        local function set_keymap(...) vim.api.nvim_set_keymap(...) end
+        local function map(...) vim.api.nvim_set_keymap(...) end
         local opts = {noremap = true, silent = true, expr = false}
 
         require('refactoring').setup({})
@@ -271,10 +273,10 @@ return require('packer').startup{function(use)
           opts
         )
         -- Remaps for each of the four debug operations currently offered by the plugin
-        set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],         opts)
-        set_keymap("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], opts)
-        set_keymap("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],         opts)
-        set_keymap("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],          opts)
+        map("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],         opts)
+        map("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], opts)
+        map("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],         opts)
+        map("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],          opts)
       end,
     },
     requires = 'nvim-treesitter/nvim-treesitter',
@@ -283,7 +285,7 @@ return require('packer').startup{function(use)
 
   use {
     'simrat39/symbols-outline.nvim',
-    cmd = "SymbolsOutline",
+    -- cmd = "SymbolsOutline",
     setup = function()
       vim.api.nvim_set_keymap("n", ",s", ":SymbolsOutline<CR>", {noremap = true})
     end,
@@ -299,24 +301,14 @@ return require('packer').startup{function(use)
     config = function()
       require("trouble").setup{}
 
-      vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
-        {silent = true, noremap = true}
-      )
-      vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
-        {silent = true, noremap = true}
-      )
+      local function map(...) vim.api.nvim_set_keymap(...) end
+      local opts = {noremap = true, silent = true}
+      map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
+      map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
+      map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
+      map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
+      map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
+      map("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
     end,
   }
 
@@ -419,8 +411,47 @@ return require('packer').startup{function(use)
     config = function() require('configs.dashboard') end,
   }
 
+  use {
+    'windwp/nvim-spectre',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('spectre').setup()
+
+      local function map(...) vim.api.nvim_set_keymap(...) end
+      local opts = { noremap=true }
+      map("n", "<leader>S", "<cmd>lua require('spectre').open()<CR>", opts)
+
+      -- search current word
+      map("n", "<leader>sw", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", opts)
+      map("v", "<leader>s", "<cmd>lua require('spectre').open_visual()<CR>", opts)
+      -- search in current file
+      map("n", "<leader>sp", "viw<cmd>lua require('spectre').open_file_search()<CR>", opts)
+    end,
+  }
+
+  use {
+    'bkad/CamelCaseMotion',
+    config = function ()
+      vim.cmd([[
+        map <silent> w <Plug>CamelCaseMotion_w
+        map <silent> b <Plug>CamelCaseMotion_b
+        map <silent> e <Plug>CamelCaseMotion_e
+        map <silent> ge <Plug>CamelCaseMotion_ge
+        sunmap w
+        sunmap b
+        sunmap e
+        sunmap ge
+      ]])
+    end
+  }
+  use {
+    'easymotion/vim-easymotion',
+    config = function ()
+      vim.g.EasyMotion_smartcase = 1
+    end
+  }
+
   if PackerBootstrap then
     require('packer').sync()
   end
 end}
-
