@@ -48,7 +48,8 @@ return require('packer').startup{function(use)
   --- UI & Theme plugins. Look & Feel ---
   use {
     'arcticicestudio/nord-vim',
-    -- config = function() vim.cmd("colorscheme nord") end,
+    disable = true,
+    config = function() vim.cmd("colorscheme nord") end,
   }
   use {
     'norcalli/nvim-base16.lua',
@@ -285,7 +286,7 @@ return require('packer').startup{function(use)
 
   use {
     'simrat39/symbols-outline.nvim',
-    -- cmd = "SymbolsOutline",
+    cmd = "SymbolsOutline",
     setup = function()
       vim.api.nvim_set_keymap("n", ",s", ":SymbolsOutline<CR>", {noremap = true})
     end,
@@ -323,7 +324,8 @@ return require('packer').startup{function(use)
 
   use {
     'mfussenegger/nvim-dap',
-    config = function ()
+    module = "dap",
+    setup = function ()
       local utils = require('utils')
       utils.map('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
       utils.map('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>')
@@ -332,9 +334,11 @@ return require('packer').startup{function(use)
       utils.map('n', '<leader>dt', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
     end
   }
+
   use {
     "Pocco81/DAPInstall.nvim",
     requires = 'mfussenegger/nvim-dap',
+    after = 'nvim-dap',
     config = function ()
       local dap_install = require("dap-install")
       local dbg_list = require("dap-install.api.debuggers").get_installed_debuggers()
@@ -349,8 +353,9 @@ return require('packer').startup{function(use)
     'theHamsta/nvim-dap-virtual-text',
     requires = {
       'mfussenegger/nvim-dap',
-      'nvim-treesitter/nvim-treesitter'
+      'nvim-treesitter/nvim-treesitter',
     },
+    after = 'nvim-dap',
     config = function ()
       require("nvim-dap-virtual-text").setup{}
     end,
@@ -359,19 +364,15 @@ return require('packer').startup{function(use)
   use {
     "rcarriga/nvim-dap-ui",
     requires = {"mfussenegger/nvim-dap"},
-    config = function ()
-      require("dapui").setup()
-
+    setup = function ()
       local function map(...) vim.api.nvim_set_keymap(...) end
       local opts = {noremap = true, silent = true}
       map("n", ",d", "<cmd>lua require('dapui').toggle()<CR>", opts)
     end,
-  }
-
-  use {
-    "rcarriga/vim-ultest",
-     requires = {"vim-test/vim-test"},
-     run = "<Cmd>UpdateRemotePlugins",
+    after = 'nvim-dap',
+    config = function ()
+      require("dapui").setup()
+    end
   }
 
   --- Miscellaneous ---

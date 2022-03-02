@@ -7,7 +7,7 @@ gps.setup()
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'nord',
+    theme = 'gruvbox',
     section_separators = {
       left = '',
       right = ''
