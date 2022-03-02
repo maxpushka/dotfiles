@@ -11,8 +11,8 @@ return require('packer').startup{function(use)
     'wbthomason/packer.nvim',
     event = "VimEnter",
   }
-  use { 'lewis6991/impatient.nvim' }
-  use { 'nathom/filetype.nvim' }
+  use 'lewis6991/impatient.nvim'
+  use 'nathom/filetype.nvim'
   use {
     'nvim-lua/plenary.nvim',
     requires = { 'nvim-lua/popup.nvim' }
@@ -25,7 +25,7 @@ return require('packer').startup{function(use)
       require('configs.fugitive')
     end
   }
-  use { 'tpope/vim-rhubarb' }
+  use 'tpope/vim-rhubarb'
 
   use {
     -- TODO: lazyload like in NvChad
@@ -119,7 +119,7 @@ return require('packer').startup{function(use)
         show_current_context = true,
         show_current_context_start = true,
       }
-      vim.cmd [[highlight IndentBlanklineIndent1 guifg=#2C323C gui=nocombine]]
+      vim.cmd([[highlight IndentBlanklineIndent1 guifg=#2C323C gui=nocombine]])
     end
   }
 
@@ -319,6 +319,61 @@ return require('packer').startup{function(use)
     end
   }
 
+  --- DAP plugins ---
+
+  use {
+    'mfussenegger/nvim-dap',
+    config = function ()
+      local utils = require('utils')
+      utils.map('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
+      utils.map('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>')
+      utils.map('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>')
+      utils.map('n', '<leader>dso', '<cmd>lua require"dap".step_out()<CR>')
+      utils.map('n', '<leader>dt', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
+    end
+  }
+  use {
+    "Pocco81/DAPInstall.nvim",
+    requires = 'mfussenegger/nvim-dap',
+    config = function ()
+      local dap_install = require("dap-install")
+      local dbg_list = require("dap-install.api.debuggers").get_installed_debuggers()
+
+      for _, debugger in ipairs(dbg_list) do
+        dap_install.config(debugger, {})
+      end
+    end,
+  }
+
+  use {
+    'theHamsta/nvim-dap-virtual-text',
+    requires = {
+      'mfussenegger/nvim-dap',
+      'nvim-treesitter/nvim-treesitter'
+    },
+    config = function ()
+      require("nvim-dap-virtual-text").setup{}
+    end,
+  }
+
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"},
+    config = function ()
+      require("dapui").setup()
+
+      local function map(...) vim.api.nvim_set_keymap(...) end
+      local opts = {noremap = true, silent = true}
+      map("n", ",d", "<cmd>lua require('dapui').toggle()<CR>", opts)
+    end,
+  }
+
+  use {
+    "rcarriga/vim-ultest",
+     requires = {"vim-test/vim-test"},
+     run = "<Cmd>UpdateRemotePlugins",
+  }
+
   --- Miscellaneous ---
 
   use {
@@ -335,7 +390,7 @@ return require('packer').startup{function(use)
     end
   }
 
-  use { 'tpope/vim-surround' }
+  use 'tpope/vim-surround'
 
   use {
     'windwp/nvim-autopairs',
@@ -397,7 +452,7 @@ return require('packer').startup{function(use)
     end,
   }
 
-  use { "Pocco81/TrueZen.nvim" }
+  use "Pocco81/TrueZen.nvim"
 
   use {
     'glepnir/dashboard-nvim',
