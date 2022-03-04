@@ -470,9 +470,8 @@ return require('packer').startup{function(use)
   use {
     'windwp/nvim-spectre',
     requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('spectre').setup()
-
+    module = 'spectre',
+    setup = function ()
       local function map(...) vim.api.nvim_set_keymap(...) end
       local opts = { noremap=true }
       map("n", "<leader>S", "<cmd>lua require('spectre').open()<CR>", opts)
@@ -482,6 +481,9 @@ return require('packer').startup{function(use)
       map("v", "<leader>s", "<cmd>lua require('spectre').open_visual()<CR>", opts)
       -- search in current file
       map("n", "<leader>sp", "viw<cmd>lua require('spectre').open_file_search()<CR>", opts)
+    end,
+    config = function()
+      require('spectre').setup()
     end,
   }
 
