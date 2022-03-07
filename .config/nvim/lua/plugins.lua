@@ -184,6 +184,9 @@ return require('packer').startup{function(use)
   use {
     "folke/twilight.nvim",
     cmd = {"Twilight", "TwilightEnable", "TwilightDisable"},
+    setup = function ()
+      vim.api.nvim_set_keymap("n", "<space>t", "<Cmd>Twilight<CR>", {noremap = true, silent = true})
+    end,
     config = function() require("twilight") end,
   }
 
