@@ -1,10 +1,14 @@
 -- Description: Keymaps
 local set_keymap = vim.api.nvim_set_keymap
 
-set_keymap("n", "<S-C-p>", "\"0p", {noremap = true})
+set_keymap("n", "'", ":", {noremap = true})
+
 -- Delete without yank
 set_keymap("n", "<leader>d", "\"_d", {noremap = true})
 set_keymap("n", "x", "\"_x",         {noremap = true})
+-- Don't copy the replaced text after pasting in visual mode
+set_keymap("v", "p", '"_dP', {noremap = true})
+set_keymap("n", "<S-C-p>", "\"0p", {noremap = true})
 
 -- Increment/decrement
 set_keymap("n", "+", "<C-a>", {noremap = true})
@@ -51,9 +55,8 @@ set_keymap("n", "]t", ":tabnext<Return>", {})
 -- Windows
 
 -- Split window
-set_keymap("n", "ss", ":split<Return><C-w>w",  {noremap=true})
-set_keymap("n", "sv", ":vsplit<Return><C-w>w", {noremap=true})
-set_keymap("n", "sd", ":Bdelete<CR>",          {noremap=true})
+set_keymap("n", "<leader>ss", ":split<Return><C-w>w",  {noremap=true, silent=true})
+set_keymap("n", "<leader>sv", ":vsplit<Return><C-w>w", {noremap=true, silent=true})
 -- Move window
 set_keymap("", "<C-left>",  "<C-w>h", {})
 set_keymap("", "<C-up>",    "<C-w>k", {})

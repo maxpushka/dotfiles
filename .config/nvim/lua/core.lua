@@ -2,6 +2,7 @@
 -- ---------------------------------------------------------------------
 
 vim.cmd('autocmd!')
+vim.o.swapfile = false
 vim.opt.compatible = false
 vim.o.number = true
 vim.o.relativenumber = true
@@ -17,16 +18,16 @@ vim.o.background = 'dark'
 vim.o.backup = false
 vim.o.hlsearch = true
 vim.o.showcmd = true
-vim.o.cmdheight= 1
-vim.o.laststatus= 2
-vim.o.scrolloff= 10
+vim.o.cmdheight = 1
+vim.o.laststatus = 2
+vim.o.scrolloff = 10
 vim.o.expandtab = true
 --vim.o.loaded_matchparen = 1
 vim.o.shell = 'bash'
-vim.o.backupskip='/tmp/*,/private/tmp/*'
+vim.o.backupskip = '/tmp/*,/private/tmp/*'
 
 -- incremental substitution
-vim.o.inccommand='split'
+vim.o.inccommand = 'split'
 
 -- Suppress appending <PasteStart> and <PasteEnd> when pasting
 --vim.o.t_BE=''
@@ -42,15 +43,15 @@ vim.o.ignorecase = true -- Ignore case when searching
 vim.o.smarttab = true -- Be smart when using tabs ;)
 -- indents
 vim.api.nvim_command('filetype plugin indent on')
-vim.o.shiftwidth=2
-vim.o.tabstop=2
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
 vim.o.ai = true -- Auto indent
 vim.o.si = true -- Smart indent
 vim.o.wrap = false -- No Wrap lines
 vim.o.backspace = 'start,eol,indent'
 vim.o.foldmethod = 'indent'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.foldlevel=20
+vim.o.foldlevel = 20
 -- Finding files - Search down into subfolders
 vim.opt.path:append('**')
 vim.opt.wildignore:append('*/node_modules/*')
