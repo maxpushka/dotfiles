@@ -10,7 +10,7 @@
 	d = diff
 	f = fetch
   fa = fetch --all
-	lg = log --stat
+	lg = log --stat --graph
 	p = push
   pf = push --force
 	rb = rebase
