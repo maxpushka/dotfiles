@@ -366,8 +366,8 @@ return require('packer').startup{function(use)
 
   use {
     "rcarriga/nvim-dap-ui",
-    requires = {"mfussenegger/nvim-dap"},
-    setup = function ()
+    requires = { "mfussenegger/nvim-dap" },
+    setup = function()
       local function map(...) vim.api.nvim_set_keymap(...) end
       local opts = {noremap = true, silent = true}
       map("n", ",d", "<cmd>lua require('dapui').toggle()<CR>", opts)
@@ -375,7 +375,18 @@ return require('packer').startup{function(use)
     after = 'nvim-dap',
     config = function ()
       require("dapui").setup()
-    end
+    end,
+  }
+
+  use {
+    "rcarriga/vim-ultest",
+    requires = {"vim-test/vim-test"},
+    run = "<Cmd>UpdateRemotePlugins",
+    setup = function()
+      vim.api.nvim_set_keymap("n", ",t", "<Cmd>UltestSummary<CR>", {noremap = true})
+    end,
+    cmd = { "Ultest", "UltestSummary", "UltestDebugNearest" },
+    config = "require('configs.ultest').post()",
   }
 
   --- Miscellaneous ---
@@ -383,7 +394,7 @@ return require('packer').startup{function(use)
   use {
     'famiu/bufdelete.nvim',
     config = function ()
-      vim.api.nvim_set_keymap('n', 'sd', ":Bdelete<CR>", {noremap=true})
+      vim.api.nvim_set_keymap('n', '<leader>sd', ":Bdelete<CR>", {noremap=true})
     end,
   }
 
@@ -391,7 +402,7 @@ return require('packer').startup{function(use)
     'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup()
-    end
+    end,
   }
 
   use 'tpope/vim-surround'
@@ -461,11 +472,11 @@ return require('packer').startup{function(use)
   use {
     'glepnir/dashboard-nvim',
     setup = function()
-      vim.api.nvim_set_keymap("n", "<leader>bm", ":DashboardJumpMarks <CR>", {})
-      vim.api.nvim_set_keymap("n", "<leader>fn", ":DashboardNewFile <CR>",   {}) -- basically create a new buffer
-      vim.api.nvim_set_keymap("n", "<leader>db", ":Dashboard <CR>",          {}) -- open dashboard
-      vim.api.nvim_set_keymap("n", "<leader>l",  ":SessionLoad <CR>",        {})
-      vim.api.nvim_set_keymap("n", "<leader>s",  ":SessionSave <CR>",        {})
+      vim.api.nvim_set_keymap("n", "<leader>bm", "<Cmd>DashboardJumpMarks<CR>", {})
+      vim.api.nvim_set_keymap("n", "<leader>fn", "<Cmd>DashboardNewFile<CR>",   {}) -- basically create a new buffer
+      vim.api.nvim_set_keymap("n", "<leader>db", "<Cmd>Dashboard<CR>",          {}) -- open dashboard
+      -- vim.api.nvim_set_keymap("n", "<leader>l",  "<Cmd>SessionLoad<CR>",        {})
+      -- vim.api.nvim_set_keymap("n", "<leader>s",  "<Cmd>SessionSave<CR>",        {})
     end,
     config = function() require('configs.dashboard') end,
   }
@@ -492,7 +503,7 @@ return require('packer').startup{function(use)
 
   use {
     'bkad/CamelCaseMotion',
-    config = function ()
+    config = function()
       vim.cmd([[
         map <silent> w <Plug>CamelCaseMotion_w
         map <silent> b <Plug>CamelCaseMotion_b
@@ -503,13 +514,54 @@ return require('packer').startup{function(use)
         sunmap e
         sunmap ge
       ]])
-    end
+    end,
   }
   use {
     'easymotion/vim-easymotion',
+    disable = true,
     config = function ()
       vim.g.EasyMotion_smartcase = 1
     end
+  }
+  use {
+    'ggandor/lightspeed.nvim',
+    keys = {
+      '<Plug>Lightspeed_s',
+      '<Plug>Lightspeed_S',
+      '<Plug>Lightspeed_x',
+      '<Plug>Lightspeed_X',
+      '<Plug>Lightspeed_f',
+      '<Plug>Lightspeed_F',
+      '<Plug>Lightspeed_t',
+      '<Plug>Lightspeed_T',
+    },
+    setup = function()
+      local default_keymaps = {
+        { 'n', 's', '<Plug>Lightspeed_s' },
+        { 'n', 'S', '<Plug>Lightspeed_S' },
+        { 'x', 's', '<Plug>Lightspeed_s' },
+        { 'x', 'S', '<Plug>Lightspeed_S' },
+        { 'o', 'z', '<Plug>Lightspeed_s' },
+        { 'o', 'Z', '<Plug>Lightspeed_S' },
+        { 'o', 'x', '<Plug>Lightspeed_x' },
+        { 'o', 'X', '<Plug>Lightspeed_X' },
+        { 'n', 'f', '<Plug>Lightspeed_f' },
+        { 'n', 'F', '<Plug>Lightspeed_F' },
+        { 'x', 'f', '<Plug>Lightspeed_f' },
+        { 'x', 'F', '<Plug>Lightspeed_F' },
+        { 'o', 'f', '<Plug>Lightspeed_f' },
+        { 'o', 'F', '<Plug>Lightspeed_F' },
+        { 'n', 't', '<Plug>Lightspeed_t' },
+        { 'n', 'T', '<Plug>Lightspeed_T' },
+        { 'x', 't', '<Plug>Lightspeed_t' },
+        { 'x', 'T', '<Plug>Lightspeed_T' },
+        { 'o', 't', '<Plug>Lightspeed_t' },
+        { 'o', 'T', '<Plug>Lightspeed_T' },
+      }
+      for _, m in ipairs(default_keymaps) do
+        vim.api.nvim_set_keymap(m[1], m[2], m[3], { silent = true })
+      end
+    end,
   }
 
   if PackerBootstrap then
