@@ -302,17 +302,19 @@ return require('packer').startup{function(use)
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
+    setup = function()
+      local function map(...) vim.api.nvim_set_keymap(...) end
+      local opts = {noremap = true}--, silent = true}
+      map("n", "<leader>xx", "<Cmd>Trouble<CR>", opts)
+      map("n", "<leader>xw", "<Cmd>Trouble workspace_diagnostics<CR>", opts)
+      map("n", "<leader>xd", "<Cmd>Trouble document_diagnostics<CR>", opts)
+      map("n", "<leader>xl", "<Cmd>Trouble loclist<CR>", opts)
+      map("n", "<leader>xq", "<Cmd>Trouble quickfix<CR>", opts)
+      map("n", "gR", "<Cmd>Trouble lsp_references<CR>", opts)
+    end,
+    cmd = "Trouble",
     config = function()
       require("trouble").setup{}
-
-      local function map(...) vim.api.nvim_set_keymap(...) end
-      local opts = {noremap = true, silent = true}
-      map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
-      map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
-      map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
-      map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
-      map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
-      map("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
     end,
   }
 
@@ -380,7 +382,10 @@ return require('packer').startup{function(use)
 
   use {
     "rcarriga/vim-ultest",
-    requires = {"vim-test/vim-test"},
+    requires = {
+      "vim-test/vim-test",
+      cmd = { "Ultest", "UltestSummary", "UltestDebugNearest" },
+    },
     run = "<Cmd>UpdateRemotePlugins",
     setup = function()
       vim.api.nvim_set_keymap("n", ",t", "<Cmd>UltestSummary<CR>", {noremap = true})
