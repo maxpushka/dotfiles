@@ -2,10 +2,12 @@ local present, bufferline = pcall(require, 'bufferline')
 if not present then return end
 
 vim.opt.termguicolors = true
-vim.api.nvim_set_keymap('n', ']b', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '[b', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', ']B', ':BufferLineMoveNext<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '[B', ':BufferLineMovePrev<CR>', {noremap = true, silent = true})
+
+local set_keymap = require('utils').set_keymap
+set_keymap('n', ']b', ':BufferLineCycleNext<CR>')
+set_keymap('n', '[b', ':BufferLineCyclePrev<CR>')
+set_keymap('n', ']B', ':BufferLineMoveNext<CR>')
+set_keymap('n', '[B', ':BufferLineMovePrev<CR>')
 
 bufferline.setup {
    options = {
