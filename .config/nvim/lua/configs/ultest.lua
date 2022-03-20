@@ -67,7 +67,7 @@ function M.post()
               type = "go",
               request = "launch",
               mode = "test",
-              program = "${workspaceFolder}",
+              program = "./${relativeFileDirname}",
               dlvToolPath = vim.fn.exepath("dlv"),
               args = args
             },

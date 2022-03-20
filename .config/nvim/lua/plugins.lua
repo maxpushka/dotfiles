@@ -333,10 +333,10 @@ return require('packer').startup{function(use)
     setup = function ()
       local utils = require('utils')
       utils.map('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
-      utils.map('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>')
-      utils.map('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>')
-      utils.map('n', '<leader>dso', '<cmd>lua require"dap".step_out()<CR>')
-      utils.map('n', '<leader>dt', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
+      utils.map('n', '<leader>dv', '<cmd>lua require"dap".step_over()<CR>')
+      utils.map('n', '<leader>di', '<cmd>lua require"dap".step_into()<CR>')
+      utils.map('n', '<leader>do', '<cmd>lua require"dap".step_out()<CR>')
+      utils.map('n', '<leader>db', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
     end
   }
 
