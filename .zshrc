@@ -140,7 +140,7 @@ function choose_ls {
   fi
 }
 
-function lt {
+function ltree {
   if isWindows; then
     tree "$@"
   else
