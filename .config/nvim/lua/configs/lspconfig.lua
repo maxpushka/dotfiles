@@ -10,6 +10,8 @@ vim.o.completeopt = 'menu,menuone,noselect'
 local lsp_installer = require('nvim-lsp-installer')
 local cmp = require('cmp')
 local luasnip = require('luasnip') -- luasnip setup
+local lspkind = require('lspkind')
+lspkind.init()
 
 cmp.setup {
   snippet = {
@@ -69,7 +71,7 @@ cmp.setup {
         path = "[Path]",
       }
 
-			vim_item.kind = require('lspkind').presets.default[vim_item.kind]
+			vim_item.kind = lspkind.presets.default[vim_item.kind]
 			local menu = source_mapping[entry.source.name]
 			if entry.source.name == 'cmp_tabnine' then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
@@ -102,23 +104,20 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', 'gpd', '<cmd>lua require("goto-preview").goto_preview_definition()<CR>', opts)
-  buf_set_keymap('n', 'gpi', '<cmd>lua require("goto-preview").goto_preview_implementation()<CR>', opts)
-  buf_set_keymap('n', 'gpr', '<cmd>lua require("goto-preview").goto_preview_references()<CR>', opts)
-  buf_set_keymap('n', 'gc', '<cmd>lua require("goto-preview").close_all_win()<CR>', opts)
-  buf_set_keymap('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<C-q>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('i', '<C-q>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opts)
+  buf_set_keymap('n', 'ca', '<cmd>Lspsaga code_action<CR>', opts)
+  buf_set_keymap('v', 'ca', ':<c-u>Lspsaga range_code_action<cr>', opts)
+  buf_set_keymap('n', '<C-q>', '<cmd>Lspsaga hover_doc<CR>', opts)
+  buf_set_keymap('i', '<C-q>', '<cmd>Lspsaga signature_help<CR>', opts)
 
   buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opts)
+  buf_set_keymap('n', '<leader>e', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
+  buf_set_keymap('n', '[e', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+  buf_set_keymap('n', ']e', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
   -- buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts) -- use folke/trouble.nvim keymaps instead
   -- buf_set_keymap('n', '<leader>gl', '<cmd>lua vim.diagnostic.setqflist()<CR>.', opts)
   buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
@@ -130,35 +129,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
     vim.api.nvim_command [[augroup END]]
   end
-
-  --protocol.SymbolKind = { }
-  --protocol.CompletionItemKind = {
-    --'', -- Text
-    --'', -- Method
-    --'', -- Function
-    --'', -- Constructor
-    --'', -- Field
-    --'', -- Variable
-    --'', -- Class
-    --'ﰮ', -- Interface
-    --'', -- Module
-    --'', -- Property
-    --'', -- Unit
-    --'', -- Value
-    --'', -- Enum
-    --'', -- Keyword
-    --'﬌', -- Snippet
-    --'', -- Color
-    --'', -- File
-    --'', -- Reference
-    --'', -- Folder
-    --'', -- EnumMember
-    --'', -- Constant
-    --'', -- Struct
-    --'', -- Event
-    --'ﬦ', -- Operator
-    --'', -- TypeParameter
-  --}
 end
 
 local tabnine = require('cmp_tabnine.config')

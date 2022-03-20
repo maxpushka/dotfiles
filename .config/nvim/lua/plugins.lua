@@ -19,6 +19,7 @@ return require('packer').startup{function(use)
   }
 
   --- Git plugins ---
+
   use {
     'tpope/vim-fugitive',
     config = function()
@@ -28,7 +29,6 @@ return require('packer').startup{function(use)
   use 'tpope/vim-rhubarb'
 
   use {
-    -- TODO: lazyload like in NvChad
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     tag = 'release', -- To use the latest release
@@ -46,6 +46,7 @@ return require('packer').startup{function(use)
   }
 
   --- UI & Theme plugins. Look & Feel ---
+
   use {
     'arcticicestudio/nord-vim',
     disable = true,
@@ -190,19 +191,38 @@ return require('packer').startup{function(use)
     config = function() require("twilight") end,
   }
 
+  use {
+    'tami5/lspsaga.nvim',
+    require = 'neovim/nvim-lspconfig',
+    cmd = "Lspsaga",
+    config = function()
+       require('lspsaga').setup()
+    end
+  }
+
   --- LSP stuff ---
+
   use {
     'neovim/nvim-lspconfig',
     config = function() require('configs.lspconfig') end,
   }
-
   use {
-    'hrsh7th/nvim-cmp',
-    requires = { 'onsails/lspkind-nvim' },
+    'onsails/lspkind-nvim',
+    config = function()
+      require('lspkind').init()
+    end,
   }
   use {
     'williamboman/nvim-lsp-installer',
     requires = 'neovim/nvim-lspconfig',
+  }
+
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'neovim/nvim-lspconfig',
+      'onsails/lspkind-nvim',
+    },
   }
   use {
     "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
@@ -318,13 +338,6 @@ return require('packer').startup{function(use)
     end,
   }
 
-  use {
-    'rmagatti/goto-preview',
-    config = function()
-      require('goto-preview').setup {}
-    end
-  }
-
   --- DAP plugins ---
 
   use {
@@ -390,7 +403,8 @@ return require('packer').startup{function(use)
     setup = function()
       vim.api.nvim_set_keymap("n", ",t", "<Cmd>UltestSummary<CR>", {noremap = true})
     end,
-    cmd = { "Ultest", "UltestSummary", "UltestDebugNearest" },
+    after = "vim-test/vim-test",
+    -- cmd = { "Ultest", "UltestSummary", "UltestDebugNearest" },
     config = "require('configs.ultest').post()",
   }
 
@@ -472,7 +486,10 @@ return require('packer').startup{function(use)
     end,
   }
 
-  use "Pocco81/TrueZen.nvim"
+  use {
+    "Pocco81/TrueZen.nvim",
+    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
+  }
 
   use {
     'glepnir/dashboard-nvim',
@@ -520,13 +537,6 @@ return require('packer').startup{function(use)
         sunmap ge
       ]])
     end,
-  }
-  use {
-    'easymotion/vim-easymotion',
-    disable = true,
-    config = function ()
-      vim.g.EasyMotion_smartcase = 1
-    end
   }
   use {
     'ggandor/lightspeed.nvim',
