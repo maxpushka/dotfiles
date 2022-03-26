@@ -4,10 +4,11 @@ if not present then return end
 vim.opt.termguicolors = true
 
 local set_keymap = require('utils').set_keymap
-set_keymap('n', ']b', ':BufferLineCycleNext<CR>')
-set_keymap('n', '[b', ':BufferLineCyclePrev<CR>')
-set_keymap('n', ']B', ':BufferLineMoveNext<CR>')
-set_keymap('n', '[B', ':BufferLineMovePrev<CR>')
+set_keymap('n', ']b', '<Cmd>BufferLineCycleNext<CR>')
+set_keymap('n', '[b', '<Cmd>BufferLineCyclePrev<CR>')
+set_keymap('n', ']B', '<Cmd>BufferLineMoveNext<CR>')
+set_keymap('n', '[B', '<Cmd>BufferLineMovePrev<CR>')
+set_keymap('n', '<leader>b', '<Cmd>BufferLinePick<CR>')
 
 bufferline.setup {
    options = {
@@ -27,7 +28,15 @@ bufferline.setup {
       show_buffer_close_icons = true,
       separator_style = "thin",
       always_show_bufferline = true,
-      diagnostics = false,
+      diagnostics = "nvim_lsp",
+      diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        local s = " "
+        for e, n in pairs(diagnostics_dict) do
+          local sym = e == "error" and " " or (e == "warning" and " " or "" )
+          s = s .. n .. sym
+        end
+        return s
+      end,
       custom_filter = function(buf_number)
          -- Func to filter out our managed/persistent split terms
          local present_type, type = pcall(function()
