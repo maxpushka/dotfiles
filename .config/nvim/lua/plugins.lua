@@ -481,9 +481,7 @@ local plugins = {
     'glepnir/dashboard-nvim',
     setup = function()
       local set_keymap = require('utils').set_keymap
-      set_keymap("n", "<leader>bm", "<Cmd>DashboardJumpMarks<CR>")
-      set_keymap("n", "<leader>fn", "<Cmd>DashboardNewFile<CR>") -- basically create a new buffer
-      set_keymap("n", "<leader>db", "<Cmd>Dashboard<CR>") -- open dashboard
+      set_keymap("n", "<leader>sn", "<Cmd>DashboardNewFile<CR>") -- basically create a new buffer
     end,
     config = function() require('configs.dashboard') end,
   },
