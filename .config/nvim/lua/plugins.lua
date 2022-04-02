@@ -155,28 +155,41 @@ local plugins = {
     setup = function()
       local set_keymap = require('utils').set_keymap
       set_keymap('n', ';f',  '<cmd>Telescope find_files<cr>')
-      set_keymap('n', ';e',  '<cmd>Telescope file_browser<cr>')
       set_keymap('n', ';g',  '<cmd>Telescope live_grep<cr>')
       set_keymap('n', ';b',  '<cmd>Telescope buffers<cr>')
       set_keymap('n', ';h',  '<cmd>Telescope help_tags<cr>')
-      set_keymap('n', ';p',  '<cmd>Telescope project<cr>')
-      set_keymap('n', ';y',  '<cmd>Telescope neoclip<cr>')
-      set_keymap('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>')
-      set_keymap('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>')
     end,
     config = function() require('configs.telescope') end
   },
   {
-    'nvim-telescope/telescope-project.nvim',
-    'nvim-telescope/telescope-file-browser.nvim',
+    {
+      'nvim-telescope/telescope-project.nvim',
+      setup = function()
+        require('utils').set_keymap('n', ';p',  '<cmd>Telescope project<cr>')
+      end,
+    },
+    {
+      'nvim-telescope/telescope-file-browser.nvim',
+      setup = function()
+        require('utils').set_keymap('n', ';e',  '<cmd>Telescope file_browser<cr>')
+      end,
+    },
     {
       "AckslD/nvim-neoclip.lua",
       requires = {'tami5/sqlite.lua', module = 'sqlite'},
-      config = function()
-        require('neoclip').setup{ enable_persistent_history = true }
+      setup = function()
+        require('utils').set_keymap('n', ';y',  '<cmd>Telescope neoclip<cr>')
+      end,
+      disable = true,
+    },
+    {
+      'ThePrimeagen/git-worktree.nvim',
+      setup = function()
+        local set_keymap = require('utils').set_keymap
+        set_keymap('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>')
+        set_keymap('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>')
       end,
     },
-    'ThePrimeagen/git-worktree.nvim',
     requires = 'nvim-telescope/telescope.nvim',
   },
 
