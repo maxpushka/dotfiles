@@ -4,6 +4,7 @@
 	defaultBranch = main
 [core]
 	editor = nvim
+	excludesFile = ~/.gitignore
 [alias]
 	a = add
 	aa = add --all
