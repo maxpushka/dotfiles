@@ -104,6 +104,8 @@ alias {v,nvim}="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
+alias dk="docker"
+alias dkc="docker-compose"
 
 # explorer function
 e () {
@@ -144,7 +146,7 @@ function ltree {
   if isWindows; then
     tree "$@"
   else
-    ls --tree -L 2 "$@"
+    ls --all --tree -L 2 "$@"
   fi
 }
 
