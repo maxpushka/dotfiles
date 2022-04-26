@@ -47,8 +47,9 @@ local g = vim.g
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 g.nvim_tree_git_hl = 0
 g.nvim_tree_highlight_opened_files = 0
-g.nvim_tree_indent_markers = 1
 g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
+g.loaded_netrw       = 1
+g.loaded_netrwPlugin = 1
 
 g.nvim_tree_show_icons = {
   folders = 1,
@@ -82,7 +83,7 @@ nvim_tree.setup{
   filters = {
     dotfiles = false,
   },
-  disable_netrw = true,
+  disable_netrw = false,
   hijack_netrw = true,
   ignore_ft_on_setup = { "dashboard" },
   auto_close = false,
@@ -129,5 +130,10 @@ nvim_tree.setup{
   git = {
     enable = true,
     ignore = false,
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+    },
   },
 }
