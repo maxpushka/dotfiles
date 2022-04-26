@@ -398,12 +398,27 @@ local plugins = {
   {
     "rcarriga/vim-ultest",
     requires = "vim-test/vim-test",
-    run = "<Cmd>UpdateRemotePlugins<CR>",
-    setup = function()
-      require('utils').set_keymap("n", ",t", "<Cmd>UltestSummary<CR>", {noremap = true})
+    run = function ()
+      vim.api.nvim_command("UpdateRemotePlugins")
     end,
-    cmd = { "Ultest", "UltestSummary", "UltestDebug", "UltestDebugNearest" },
-    config = function() require('configs.ultest').post() end,
+    setup = function()
+      local set_keymap = require('utils').set_keymap
+      set_keymap("n", ",t",           "<Cmd>UltestSummary<CR>",     {noremap = true})
+      set_keymap("n", "<leader>uo",  "<Cmd>UltestOutput<CR>",       {noremap = true})
+
+      set_keymap("n", "<leader>ur",  "<Cmd>Ultest<CR>",             {noremap = true})
+      set_keymap("n", "<leader>urn", "<Cmd>UltestNearest<CR>",      {noremap = true})
+
+      set_keymap("n", "<leader>ud",  "<Cmd>UltestDebug<CR>",        {noremap = true})
+      set_keymap("n", "<leader>udn", "<Cmd>UltestDebugNearest<CR>", {noremap = true})
+    end,
+    cmd = {
+      "UltestSummary", "UltestOutput",
+      "Ultest", "UltestNearest",
+      "UltestDebug", "UltestDebugNearest" },
+    config = function()
+      require('configs.ultest').post()
+    end,
   },
 
   --- Miscellaneous ---
