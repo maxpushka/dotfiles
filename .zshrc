@@ -70,7 +70,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git yarn golang zsh-autosuggestions z)
+plugins=(git yarn golang zsh-autosuggestions z gh)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,6 +106,7 @@ alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
 alias dk="docker"
 alias dkc="docker-compose"
+alias gi="gitui"
 
 # explorer function
 e () {
