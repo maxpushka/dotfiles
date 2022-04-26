@@ -531,58 +531,7 @@ local plugins = {
       ]])
     end,
   },
-  {
-    'ggandor/lightspeed.nvim',
-    keys = {
-      { 'n', 's'},
-      { 'n', 'S'},
-      { 'x', 's'},
-      { 'x', 'S'},
-      { 'o', 'z'},
-      { 'o', 'Z'},
-      { 'o', 'x'},
-      { 'o', 'X'},
-      { 'n', 'f'},
-      { 'n', 'F'},
-      { 'x', 'f'},
-      { 'x', 'F'},
-      { 'o', 'f'},
-      { 'o', 'F'},
-      { 'n', 't'},
-      { 'n', 'T'},
-      { 'x', 't'},
-      { 'x', 'T'},
-      { 'o', 't'},
-      { 'o', 'T'},
-    },
-    setup = function()
-      local default_keymaps = {
-        { 'n', 's', '<Plug>Lightspeed_s' },
-        { 'n', 'S', '<Plug>Lightspeed_S' },
-        { 'x', 's', '<Plug>Lightspeed_s' },
-        { 'x', 'S', '<Plug>Lightspeed_S' },
-        { 'o', 'z', '<Plug>Lightspeed_s' },
-        { 'o', 'Z', '<Plug>Lightspeed_S' },
-        { 'o', 'x', '<Plug>Lightspeed_x' },
-        { 'o', 'X', '<Plug>Lightspeed_X' },
-        { 'n', 'f', '<Plug>Lightspeed_f' },
-        { 'n', 'F', '<Plug>Lightspeed_F' },
-        { 'x', 'f', '<Plug>Lightspeed_f' },
-        { 'x', 'F', '<Plug>Lightspeed_F' },
-        { 'o', 'f', '<Plug>Lightspeed_f' },
-        { 'o', 'F', '<Plug>Lightspeed_F' },
-        { 'n', 't', '<Plug>Lightspeed_t' },
-        { 'n', 'T', '<Plug>Lightspeed_T' },
-        { 'x', 't', '<Plug>Lightspeed_t' },
-        { 'x', 'T', '<Plug>Lightspeed_T' },
-        { 'o', 't', '<Plug>Lightspeed_t' },
-        { 'o', 'T', '<Plug>Lightspeed_T' },
-      }
-      for _, m in ipairs(default_keymaps) do
-        require('utils').set_keymap(m[1], m[2], m[3])
-      end
-    end,
-  },
+  { 'ggandor/lightspeed.nvim' },
 }
 
 
