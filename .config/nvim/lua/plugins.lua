@@ -139,7 +139,7 @@ local plugins = {
   {
     'kyazdani42/nvim-tree.lua',
     requires = { 'nvim-web-devicons', opt = true }, -- optional, for file icon
-    cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFocus' },
+    -- cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFocus' },
     setup = function()
       require('utils').set_keymap("n", ",e", "<Cmd>NvimTreeToggle<CR>")
     end,
@@ -314,14 +314,13 @@ local plugins = {
 
   {
     'simrat39/symbols-outline.nvim',
-    cmd = "SymbolsOutline",
-    setup = function()
-      require('utils').set_keymap("n", ",s", ":SymbolsOutline<CR>")
-    end,
-    config = function() require('configs.symbols-outline') end,
     requires = {
       {'kyazdani42/nvim-web-devicons', opt = true}, -- for file icons
     },
+    config = function()
+      require('configs.symbols-outline')
+      require('utils').set_keymap("n", ",s", ":SymbolsOutline<CR>")
+    end,
   },
 
   {

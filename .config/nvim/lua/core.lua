@@ -146,6 +146,7 @@ end
 -- Extras --{{{
 -- ---------------------------------------------------------------------
 vim.o.exrc = true
+vim.o.clipboard = "unnamedplus"
 
 vim.cmd([[
   " trigger `autoread` when files changes on disk
