@@ -57,8 +57,7 @@ local plugins = {
     requires = {'norcalli/nvim.lua'},
     after = "packer.nvim",
     config = function()
-      local base16 = require('base16')
-      base16(base16.themes["gruvbox-dark-hard"], true)
+      require('configs.base16')
     end,
   },
 
