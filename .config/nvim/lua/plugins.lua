@@ -358,7 +358,8 @@ local plugins = {
   },
 
   {
-    "Pocco81/DAPInstall.nvim",
+    "Pocco81/dap-buddy.nvim",
+    branch = "dev",
     requires = 'mfussenegger/nvim-dap',
     after = 'nvim-dap',
     config = function()
@@ -398,9 +399,7 @@ local plugins = {
   {
     "rcarriga/vim-ultest",
     requires = "vim-test/vim-test",
-    run = function ()
-      vim.api.nvim_command("UpdateRemotePlugins")
-    end,
+    run = ":UpdateRemotePlugins",
     setup = function()
       local set_keymap = require('utils').set_keymap
       set_keymap("n", ",t",           "<Cmd>UltestSummary<CR>",     {noremap = true})
@@ -547,6 +546,13 @@ local plugins = {
     end,
   },
   { 'ggandor/lightspeed.nvim' },
+
+  {
+    "rafaelsq/nvim-goc.lua",
+    config = function ()
+      require('configs.goc')
+    end
+  }
 }
 
 
