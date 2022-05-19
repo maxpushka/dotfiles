@@ -19,7 +19,7 @@ vim.o.backup = false
 vim.o.hlsearch = true
 vim.o.showcmd = true
 vim.o.cmdheight = 1
-vim.o.laststatus = 2
+vim.o.laststatus = 3
 vim.o.scrolloff = 10
 vim.o.expandtab = true
 --vim.o.loaded_matchparen = 1
@@ -62,6 +62,20 @@ vim.cmd('autocmd InsertLeave * set nopaste')
 -- Add asterisks in block comments
 vim.opt.formatoptions:append('r')
 
+-- if set, when we switch between buffers, it will not split more than once. It will switch to the existing buffer instead
+vim.opt.switchbuf = 'useopen'
+
+vim.o.exrc = true
+vim.o.clipboard = "unnamedplus"
+
+vim.cmd([[
+  " trigger `autoread` when files changes on disk
+    set autoread
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+  " notification after file change
+    autocmd FileChangedShellPost *
+      \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+]])
 --}}}
 
 -- Highlights --{{{
@@ -145,15 +159,5 @@ end
 
 -- Extras --{{{
 -- ---------------------------------------------------------------------
-vim.o.exrc = true
-vim.o.clipboard = "unnamedplus"
 
-vim.cmd([[
-  " trigger `autoread` when files changes on disk
-    set autoread
-    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-  " notification after file change
-    autocmd FileChangedShellPost *
-      \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-]])
 --}}}
