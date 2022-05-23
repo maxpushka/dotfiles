@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="" #"agnoster"
-fpath+=$HOME/.oh-my-zsh/themes/typewritten
+fpath+=$ZSH/themes/typewritten
 autoload -U promptinit; promptinit
 prompt typewritten
 export TYPEWRITTEN_PROMPT_LAYOUT="pure"
