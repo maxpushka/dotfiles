@@ -426,7 +426,7 @@ local plugins = {
     'famiu/bufdelete.nvim',
     cmd = "Bdelete",
     setup = function()
-      require('utils').set_keymap('n', '<leader>sd', ":Bdelete<CR>")
+      require('utils').set_keymap('n', '<leader>bd', ":Bdelete<CR>")
     end,
   },
 
