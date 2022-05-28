@@ -108,8 +108,8 @@ alias {v,nvim}="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
-alias dk="docker"
-alias dkc="docker-compose"
+alias d="docker"
+alias dc="docker-compose"
 alias gi="gitui"
 
 # explorer function
