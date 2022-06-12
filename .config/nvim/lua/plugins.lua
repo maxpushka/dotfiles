@@ -313,13 +313,11 @@ local plugins = {
   },
 
   {
-    'simrat39/symbols-outline.nvim',
-    requires = {
-      {'kyazdani42/nvim-web-devicons', opt = true}, -- for file icons
-    },
+    'stevearc/aerial.nvim',
+    requires = "nvim-treesitter/nvim-treesitter",
     config = function()
-      require('configs.symbols-outline')
-      require('utils').set_keymap("n", ",s", ":SymbolsOutline<CR>")
+      require('aerial').setup()
+      require('utils').set_keymap("n", ",s", ":AerialToggle<CR>")
     end,
   },
 
@@ -426,7 +424,7 @@ local plugins = {
     'famiu/bufdelete.nvim',
     cmd = "Bdelete",
     setup = function()
-      require('utils').set_keymap('n', '<leader>bd', ":Bdelete<CR>")
+      require('utils').set_keymap('n', '<leader>q', ":Bdelete<CR>")
     end,
   },
 
@@ -503,12 +501,10 @@ local plugins = {
   },
 
   {
-    'glepnir/dashboard-nvim',
-    setup = function()
-      local set_keymap = require('utils').set_keymap
-      set_keymap("n", "<leader>sn", "<Cmd>DashboardNewFile<CR>") -- basically create a new buffer
+    'goolord/alpha-nvim',
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.startify'.config)
     end,
-    config = function() require('configs.dashboard') end,
   },
 
   {
