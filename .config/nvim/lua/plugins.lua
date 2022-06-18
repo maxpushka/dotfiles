@@ -53,7 +53,21 @@ local plugins = {
     config = function() vim.cmd("colorscheme nord") end,
   },
   {
+    'rakr/vim-one',
+    config = function()
+      vim.cmd([[
+        colorscheme one
+
+        let g:one_allow_italics = 1 " I love italic for comments
+        
+        set background=dark " for the dark version
+        " set background=light " for the light version
+      ]])
+    end,
+  },
+  {
     'norcalli/nvim-base16.lua',
+    disable = true,
     requires = {'norcalli/nvim.lua'},
     after = "packer.nvim",
     config = function()
