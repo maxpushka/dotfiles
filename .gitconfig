@@ -22,6 +22,8 @@
 	rs = restore
 	rss = restore --staged
 	st = status
+  sh = stash --include-untracked
+  shp = stash pop
 	sw = switch
 	up = pull --rebase
 	wa = worktree add
