@@ -159,3 +159,5 @@ if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
 
+eval "$(zoxide init zsh)"
+eval "$(gh completion --shell zsh)"
