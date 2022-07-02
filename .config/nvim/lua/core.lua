@@ -8,10 +8,10 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = 'a'
 vim.api.nvim_command('syntax enable')
-vim.o.fileencodings='utf-8,sjis,euc-jp,latin,cp1251,koi8-r,cp866'
-vim.o.encoding='utf-8'
-vim.o.guifont='*'
-vim.o.guifontwide='*'
+vim.o.fileencodings = 'utf-8,sjis,euc-jp,latin,cp1251,koi8-r,cp866'
+vim.o.encoding = 'utf-8'
+vim.o.guifont = '*'
+vim.o.guifontwide = '*'
 vim.o.title = true
 vim.o.autoindent = true
 vim.o.background = 'dark'
@@ -49,7 +49,7 @@ vim.o.ai = true -- Auto indent
 vim.o.si = true -- Smart indent
 vim.o.wrap = false -- No Wrap lines
 vim.o.backspace = 'start,eol,indent'
-vim.o.foldmethod = 'indent'
+vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevel = 20
 -- Finding files - Search down into subfolders

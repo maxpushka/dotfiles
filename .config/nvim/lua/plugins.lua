@@ -1,8 +1,8 @@
 -- Auto install packer.nvim if not exists
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  PackerBootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  PackerBootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 local plugins = {
@@ -33,9 +33,9 @@ local plugins = {
     requires = { 'nvim-lua/plenary.nvim' },
     tag = 'release', -- To the latest release
     config = function()
-      require('gitsigns').setup{
+      require('gitsigns').setup {
         signs = {
-          add          = { hl = "GitSignsAdd"   , text = "│", numhl = "GitSignsAddNr"   , linehl = "GitSignsAddLn" },
+          add          = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
           change       = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
           delete       = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
           topdelete    = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
@@ -49,17 +49,16 @@ local plugins = {
 
   {
     'arcticicestudio/nord-vim',
-    disable = true,
+    disable = false,
     config = function() vim.cmd("colorscheme nord") end,
   },
   {
     'rakr/vim-one',
+    disable = true,
     config = function()
       vim.cmd([[
         colorscheme one
-
         let g:one_allow_italics = 1 " I love italic for comments
-        
         set background=dark " for the dark version
         " set background=light " for the light version
       ]])
@@ -68,7 +67,7 @@ local plugins = {
   {
     'norcalli/nvim-base16.lua',
     disable = true,
-    requires = {'norcalli/nvim.lua'},
+    requires = { 'norcalli/nvim.lua' },
     after = "packer.nvim",
     config = function()
       require('configs.base16')
@@ -113,7 +112,7 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
-      require('indent_blankline').setup{
+      require('indent_blankline').setup {
         indentLine_enabled = 1,
         char = "▏",
         filetype_exclude = {
@@ -167,10 +166,12 @@ local plugins = {
     cmd = "Telescope",
     setup = function()
       local set_keymap = require('utils').set_keymap
-      set_keymap('n', ';f',  '<cmd>Telescope find_files<cr>')
-      set_keymap('n', ';g',  '<cmd>Telescope live_grep<cr>')
-      set_keymap('n', ';b',  '<cmd>Telescope buffers<cr>')
-      set_keymap('n', ';h',  '<cmd>Telescope help_tags<cr>')
+      set_keymap('n', ';t', '<cmd>Telescope<cr>')
+      set_keymap('n', ';f', '<cmd>Telescope find_files<cr>')
+      set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>')
+      set_keymap('n', ';b', '<cmd>Telescope buffers<cr>')
+      set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>')
+      set_keymap('n', ';s', '<cmd>Telescope lsp_document_symbols<cr>')
     end,
     config = function() require('configs.telescope') end
   },
@@ -178,20 +179,20 @@ local plugins = {
     {
       'nvim-telescope/telescope-project.nvim',
       setup = function()
-        require('utils').set_keymap('n', ';p',  '<cmd>Telescope project<cr>')
+        require('utils').set_keymap('n', ';p', '<cmd>Telescope project<cr>')
       end,
     },
     {
       'nvim-telescope/telescope-file-browser.nvim',
       setup = function()
-        require('utils').set_keymap('n', ';e',  '<cmd>Telescope file_browser<cr>')
+        require('utils').set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>')
       end,
     },
     {
       "AckslD/nvim-neoclip.lua",
-      requires = {'tami5/sqlite.lua', module = 'sqlite'},
+      requires = { 'tami5/sqlite.lua', module = 'sqlite' },
       setup = function()
-        require('utils').set_keymap('n', ';y',  '<cmd>Telescope neoclip<cr>')
+        require('utils').set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>')
       end,
       disable = true,
     },
@@ -208,18 +209,14 @@ local plugins = {
 
   {
     "folke/twilight.nvim",
-    cmd = {"Twilight", "TwilightEnable", "TwilightDisable"},
+    cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     setup = function()
       require('utils').set_keymap("n", "<space>t", "<Cmd>Twilight<CR>")
     end,
     config = function() require("twilight") end,
   },
 
-  {
-    'tami5/lspsaga.nvim',
-    require = 'neovim/nvim-lspconfig',
-    config = function() require('lspsaga').setup() end,
-  },
+  { 'stevearc/dressing.nvim' },
 
   --- LSP stuff ---
 
@@ -262,21 +259,21 @@ local plugins = {
     after = "nvim-lspconfig",
     config = function()
       local default = {
-         bind = true,
-         doc_lines = 0,
-         floating_window = true,
-         fix_pos = true,
-         hint_enable = true,
-         hint_prefix = " ",
-         hint_scheme = "String",
-         hi_parameter = "Search",
-         max_height = 22,
-         max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-         handler_opts = {
-            border = "single", -- double, single, shadow, none
-         },
-         zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
-         padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
+        bind = true,
+        doc_lines = 0,
+        floating_window = true,
+        fix_pos = true,
+        hint_enable = true,
+        hint_prefix = " ",
+        hint_scheme = "String",
+        hi_parameter = "Search",
+        max_height = 22,
+        max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+        handler_opts = {
+          border = "single", -- double, single, shadow, none
+        },
+        zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
+        padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
       }
       require('lsp_signature').setup(default)
     end,
@@ -301,12 +298,12 @@ local plugins = {
     {
       "ThePrimeagen/refactoring.nvim",
       requires = {
-        {"nvim-lua/plenary.nvim"},
-        {"nvim-treesitter/nvim-treesitter"}
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-treesitter/nvim-treesitter" }
       },
       config = function()
         local set_keymap = require('utils').set_keymap
-        local opts = {expr = false}
+        local opts = { expr = false }
 
         require('refactoring').setup({})
         set_keymap(
@@ -316,10 +313,11 @@ local plugins = {
           opts
         )
         -- Remaps for each of the four debug operations currently offered by the plugin
-        set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],         opts)
-        set_keymap("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], opts)
-        set_keymap("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],         opts)
-        set_keymap("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],          opts)
+        set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], opts)
+        set_keymap("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]]
+          , opts)
+        set_keymap("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]], opts)
+        set_keymap("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], opts)
       end,
     },
     requires = 'nvim-treesitter/nvim-treesitter',
@@ -350,7 +348,15 @@ local plugins = {
     end,
     cmd = "Trouble",
     config = function()
-      require("trouble").setup{}
+      require("trouble").setup {}
+    end,
+  },
+
+  {
+    'ray-x/go.nvim',
+    requires = 'ray-x/guihua.lua', -- recommended if need floating window support
+    config = function()
+      require('go').setup()
     end,
   },
 
@@ -392,7 +398,7 @@ local plugins = {
     },
     after = 'nvim-dap',
     config = function()
-      require("nvim-dap-virtual-text").setup{}
+      require("nvim-dap-virtual-text").setup {}
     end,
   },
 
@@ -405,30 +411,6 @@ local plugins = {
     after = 'nvim-dap',
     config = function()
       require("dapui").setup()
-    end,
-  },
-
-  {
-    "rcarriga/vim-ultest",
-    requires = "vim-test/vim-test",
-    run = ":UpdateRemotePlugins",
-    setup = function()
-      local set_keymap = require('utils').set_keymap
-      set_keymap("n", ",t",           "<Cmd>UltestSummary<CR>",     {noremap = true})
-      set_keymap("n", "<leader>uo",  "<Cmd>UltestOutput<CR>",       {noremap = true})
-
-      set_keymap("n", "<leader>ur",  "<Cmd>Ultest<CR>",             {noremap = true})
-      set_keymap("n", "<leader>urn", "<Cmd>UltestNearest<CR>",      {noremap = true})
-
-      set_keymap("n", "<leader>ud",  "<Cmd>UltestDebug<CR>",        {noremap = true})
-      set_keymap("n", "<leader>udn", "<Cmd>UltestDebugNearest<CR>", {noremap = true})
-    end,
-    cmd = {
-      "UltestSummary", "UltestOutput",
-      "Ultest", "UltestNearest",
-      "UltestDebug", "UltestDebugNearest" },
-    config = function()
-      require('configs.ultest').post()
     end,
   },
 
@@ -466,17 +448,17 @@ local plugins = {
     config = function()
       require('neoscroll').setup()
 
-      local t = {}
+      local t    = {}
       -- Syntax: t[keys] = {function, {function arguments}}
-      t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '250'}}
-      t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
-      t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '450'}}
-      t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450'}}
-      t['<C-y>'] = {'scroll', {'-0.10', 'false', '100'}}
-      t['<C-e>'] = {'scroll', { '0.10', 'false', '100'}}
-      t['zt']    = {'zt', {'250'}}
-      t['zz']    = {'zz', {'250'}}
-      t['zb']    = {'zb', {'250'}}
+      t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '250' } }
+      t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '250' } }
+      t['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '450' } }
+      t['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450' } }
+      t['<C-y>'] = { 'scroll', { '-0.10', 'false', '100' } }
+      t['<C-e>'] = { 'scroll', { '0.10', 'false', '100' } }
+      t['zt']    = { 'zt', { '250' } }
+      t['zz']    = { 'zz', { '250' } }
+      t['zb']    = { 'zb', { '250' } }
 
       require('neoscroll.config').set_mappings(t)
     end,
@@ -491,21 +473,21 @@ local plugins = {
     "Pocco81/AutoSave.nvim",
     config = function()
       local autosave = require("autosave")
-        autosave.setup{
-          enabled = true,
-          execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
-          events = {"InsertLeave", "TextChanged"},
-          conditions = {
-              exists = true,
-              filename_is_not = {},
-              filetype_is_not = {},
-              modifiable = true
-          },
-          write_all_buffers = false,
-          on_off_commands = true,
-          clean_command_line_interval = 0,
-          debounce_delay = 135,
-        }
+      autosave.setup {
+        enabled = true,
+        execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
+        events = { "InsertLeave", "TextChanged" },
+        conditions = {
+          exists = true,
+          filename_is_not = {},
+          filetype_is_not = {},
+          modifiable = true
+        },
+        write_all_buffers = false,
+        on_off_commands = true,
+        clean_command_line_interval = 0,
+        debounce_delay = 135,
+      }
     end,
   },
 
@@ -516,8 +498,8 @@ local plugins = {
 
   {
     'goolord/alpha-nvim',
-    config = function ()
-      require'alpha'.setup(require'alpha.themes.startify'.config)
+    config = function()
+      require 'alpha'.setup(require 'alpha.themes.startify'.config)
     end,
   },
 
@@ -557,12 +539,6 @@ local plugins = {
   },
   { 'ggandor/lightspeed.nvim' },
 
-  {
-    "rafaelsq/nvim-goc.lua",
-    config = function ()
-      require('configs.goc')
-    end
-  }
 }
 
 
