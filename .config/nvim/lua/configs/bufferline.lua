@@ -9,6 +9,7 @@ set_keymap('n', '[b', '<Cmd>BufferLineCyclePrev<CR>')
 set_keymap('n', ']B', '<Cmd>BufferLineMoveNext<CR>')
 set_keymap('n', '[B', '<Cmd>BufferLineMovePrev<CR>')
 set_keymap('n', '<leader>b', '<Cmd>BufferLinePick<CR>')
+set_keymap('n', '<leader>bb', '<Cmd>BufferLinePick<CR>')
 
 bufferline.setup {
    options = {
@@ -23,11 +24,11 @@ bufferline.setup {
       max_prefix_length = 15,
       tab_size = 20,
       show_tab_indicators = true,
-      enforce_regular_tabs = false,
+      enforce_regular_tabs = true,
       view = "multiwindow",
       show_buffer_close_icons = true,
       separator_style = "thin",
-      always_show_bufferline = true,
+      always_show_bufferline = false,
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
         local s = " "

@@ -26,6 +26,7 @@ ts_configs.setup {
     "css",
     "python",
     "c_sharp",
+    "java",
     "c",
     "cpp",
     "cmake",
@@ -37,7 +38,8 @@ ts_configs.setup {
     "latex",
     "vim",
     "ruby",
-    "go"
+    "go",
+    "rust",
   },
   rainbow = { -- p00f/nvim-ts-rainbow plugin
     enable = true,

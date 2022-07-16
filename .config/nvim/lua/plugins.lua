@@ -22,9 +22,7 @@ local plugins = {
 
   {
     'tpope/vim-fugitive',
-    config = function()
-      require('configs.fugitive')
-    end,
+    config = function() require('configs.fugitive') end,
   },
   { 'tpope/vim-rhubarb' },
 
@@ -32,17 +30,7 @@ local plugins = {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     tag = 'release', -- To the latest release
-    config = function()
-      require('gitsigns').setup {
-        signs = {
-          add          = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-          change       = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-          delete       = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-          topdelete    = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-          changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-        },
-      }
-    end,
+    config = function() require('configs.others').gitsigns() end,
   },
 
   --- UI & Theme plugins. Look & Feel ---
@@ -54,40 +42,27 @@ local plugins = {
   },
   {
     'rakr/vim-one',
-    disable = true,
-    config = function()
-      vim.cmd([[
-        colorscheme one
-        let g:one_allow_italics = 1 " I love italic for comments
-        set background=dark " for the dark version
-        " set background=light " for the light version
-      ]])
-    end,
+    disable = false,
+    config = function() require('configs.others').vimone() end,
   },
   {
     'norcalli/nvim-base16.lua',
     disable = true,
     requires = { 'norcalli/nvim.lua' },
     after = "packer.nvim",
-    config = function()
-      require('configs.base16')
-    end,
+    config = function() require('configs.base16') end,
   },
 
   {
     'kyazdani42/nvim-web-devicons',
     -- after = "nvim-base16.lua",
-    config = function()
-      require('configs.icons')
-    end
+    config = function() require('configs.icons') end,
   },
 
   {
     'norcalli/nvim-colorizer.lua',
     event = "BufRead",
-    config = function()
-      require('configs.colorizer')
-    end,
+    config = function() require('configs.colorizer') end,
   },
 
   {
@@ -111,42 +86,12 @@ local plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
-    config = function()
-      require('indent_blankline').setup {
-        indentLine_enabled = 1,
-        char = "▏",
-        filetype_exclude = {
-          "help",
-          "terminal",
-          "dashboard",
-          "packer",
-          "lspinfo",
-          "TelescopePrompt",
-          "TelescopeResults",
-          "nvchad_cheatsheet",
-          "lsp-installer",
-          "",
-        },
-        buftype_exclude = { "terminal" },
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = true,
-        show_current_context = true,
-        show_current_context_start = true,
-      }
-      vim.cmd([[highlight IndentBlanklineIndent1 guifg=#2C323C gui=nocombine]])
-    end
+    config = function() require('configs.others').indent_blankline() end
   },
 
   {
     'folke/lsp-colors.nvim',
-    config = function()
-      require("lsp-colors").setup({
-        Error = "#db4b4b",
-        Warning = "#e0af68",
-        Information = "#0db9d7",
-        Hint = "#10B981"
-      })
-    end,
+    config = function() require('configs.others').lsp_colors() end,
   },
 
   {
@@ -164,44 +109,37 @@ local plugins = {
     requires = 'nvim-lua/plenary.nvim',
     module = "telescope",
     cmd = "Telescope",
-    setup = function()
-      local set_keymap = require('utils').set_keymap
-      set_keymap('n', ';t', '<cmd>Telescope<cr>')
-      set_keymap('n', ';f', '<cmd>Telescope find_files<cr>')
-      set_keymap('n', ';g', '<cmd>Telescope live_grep<cr>')
-      set_keymap('n', ';b', '<cmd>Telescope buffers<cr>')
-      set_keymap('n', ';h', '<cmd>Telescope help_tags<cr>')
-      set_keymap('n', ';s', '<cmd>Telescope lsp_document_symbols<cr>')
-    end,
+    setup = function() require('configs.others').telescope() end,
     config = function() require('configs.telescope') end
   },
   {
     {
       'nvim-telescope/telescope-project.nvim',
       setup = function()
-        require('utils').set_keymap('n', ';p', '<cmd>Telescope project<cr>')
+        require('utils').set_keymap("n", "'p", "<cmd>Telescope project<cr>")
       end,
     },
     {
       'nvim-telescope/telescope-file-browser.nvim',
       setup = function()
-        require('utils').set_keymap('n', ';e', '<cmd>Telescope file_browser<cr>')
+        require('utils').set_keymap("n", "'e", "<cmd>Telescope file_browser<cr>")
       end,
     },
     {
       "AckslD/nvim-neoclip.lua",
       requires = { 'tami5/sqlite.lua', module = 'sqlite' },
       setup = function()
-        require('utils').set_keymap('n', ';y', '<cmd>Telescope neoclip<cr>')
+        require('utils').set_keymap("n", "'y",
+          "<cmd>lua require('telescope').extensions.neoclip.default()<cr>")
       end,
-      disable = true,
+      config = function() require('configs.others').neoclip() end,
     },
     {
       'ThePrimeagen/git-worktree.nvim',
       setup = function()
         local set_keymap = require('utils').set_keymap
-        set_keymap('n', ';wl', '<cmd>Telescope git_worktree git_worktrees<cr>')
-        set_keymap('n', ';wc', '<cmd>Telescope git_worktree create_git_worktree<cr>')
+        set_keymap("n", "'wl", "<cmd>Telescope git_worktree git_worktrees<cr>")
+        set_keymap("n", "'wc", "<cmd>Telescope git_worktree create_git_worktree<cr>")
       end,
     },
     requires = 'nvim-telescope/telescope.nvim',
@@ -257,26 +195,7 @@ local plugins = {
   {
     "ray-x/lsp_signature.nvim",
     after = "nvim-lspconfig",
-    config = function()
-      local default = {
-        bind = true,
-        doc_lines = 0,
-        floating_window = true,
-        fix_pos = true,
-        hint_enable = true,
-        hint_prefix = " ",
-        hint_scheme = "String",
-        hi_parameter = "Search",
-        max_height = 22,
-        max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-        handler_opts = {
-          border = "single", -- double, single, shadow, none
-        },
-        zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
-        padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
-      }
-      require('lsp_signature').setup(default)
-    end,
+    config = function() require('configs.others').lsp_signature() end,
   },
 
   { -- syntax parsers and highlighters
@@ -301,24 +220,7 @@ local plugins = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-treesitter/nvim-treesitter" }
       },
-      config = function()
-        local set_keymap = require('utils').set_keymap
-        local opts = { expr = false }
-
-        require('refactoring').setup({})
-        set_keymap(
-          "v",
-          "<leader>ff",
-          "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-          opts
-        )
-        -- Remaps for each of the four debug operations currently offered by the plugin
-        set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], opts)
-        set_keymap("v", "<Leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]]
-          , opts)
-        set_keymap("v", "<Leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]], opts)
-        set_keymap("v", "<Leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], opts)
-      end,
+      config = function() require('configs.others').refactoring() end,
     },
     requires = 'nvim-treesitter/nvim-treesitter',
     event = "BufRead",
@@ -327,10 +229,7 @@ local plugins = {
   {
     'stevearc/aerial.nvim',
     requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require('aerial').setup()
-      require('utils').set_keymap("n", ",s", ":AerialToggle<CR>")
-    end,
+    config = function() require('configs.others').aerial() end,
   },
 
   {
@@ -347,17 +246,13 @@ local plugins = {
       set_keymap("n", "gR", "<Cmd>Trouble lsp_references<CR>", opts)
     end,
     cmd = "Trouble",
-    config = function()
-      require("trouble").setup {}
-    end,
+    config = function() require("trouble").setup {} end,
   },
 
   {
     'ray-x/go.nvim',
     requires = 'ray-x/guihua.lua', -- recommended if need floating window support
-    config = function()
-      require('go').setup()
-    end,
+    config = function() require('go').setup() end,
   },
 
   --- DAP plugins ---
@@ -380,14 +275,7 @@ local plugins = {
     branch = "dev",
     requires = 'mfussenegger/nvim-dap',
     after = 'nvim-dap',
-    config = function()
-      local dap_install = require("dap-install")
-      local dbg_list = require("dap-install.api.debuggers").get_installed_debuggers()
-
-      for _, debugger in ipairs(dbg_list) do
-        dap_install.config(debugger, {})
-      end
-    end,
+    config = function() require('configs.others').dap_buddy() end,
   },
 
   {
@@ -397,9 +285,7 @@ local plugins = {
       'nvim-treesitter/nvim-treesitter',
     },
     after = 'nvim-dap',
-    config = function()
-      require("nvim-dap-virtual-text").setup {}
-    end,
+    config = function() require("nvim-dap-virtual-text").setup {} end,
   },
 
   {
@@ -409,9 +295,7 @@ local plugins = {
       require('utils').set_keymap("n", ",d", "<cmd>lua require('dapui').toggle()<CR>")
     end,
     after = 'nvim-dap',
-    config = function()
-      require("dapui").setup()
-    end,
+    config = function() require("dapui").setup() end,
   },
 
   --- Miscellaneous ---
@@ -445,23 +329,7 @@ local plugins = {
 
   {
     "karb94/neoscroll.nvim",
-    config = function()
-      require('neoscroll').setup()
-
-      local t    = {}
-      -- Syntax: t[keys] = {function, {function arguments}}
-      t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '250' } }
-      t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '250' } }
-      t['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '450' } }
-      t['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450' } }
-      t['<C-y>'] = { 'scroll', { '-0.10', 'false', '100' } }
-      t['<C-e>'] = { 'scroll', { '0.10', 'false', '100' } }
-      t['zt']    = { 'zt', { '250' } }
-      t['zz']    = { 'zz', { '250' } }
-      t['zb']    = { 'zb', { '250' } }
-
-      require('neoscroll.config').set_mappings(t)
-    end,
+    config = function() require('configs.others').neoscroll() end,
   },
 
   {
@@ -471,24 +339,7 @@ local plugins = {
 
   {
     "Pocco81/AutoSave.nvim",
-    config = function()
-      local autosave = require("autosave")
-      autosave.setup {
-        enabled = true,
-        execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
-        events = { "InsertLeave", "TextChanged" },
-        conditions = {
-          exists = true,
-          filename_is_not = {},
-          filetype_is_not = {},
-          modifiable = true
-        },
-        write_all_buffers = false,
-        on_off_commands = true,
-        clean_command_line_interval = 0,
-        debounce_delay = 135,
-      }
-    end,
+    config = function() require('configs.others').autosave() end,
   },
 
   {
@@ -517,25 +368,12 @@ local plugins = {
       -- search in current file
       set_keymap("n", "<leader>sp", "viw<cmd>lua require('spectre').open_file_search()<CR>")
     end,
-    config = function()
-      require('spectre').setup()
-    end,
+    config = function() require('spectre').setup() end,
   },
 
   {
     'bkad/CamelCaseMotion',
-    config = function()
-      vim.cmd([[
-        map <silent> w <Plug>CamelCaseMotion_w
-        map <silent> b <Plug>CamelCaseMotion_b
-        map <silent> e <Plug>CamelCaseMotion_e
-        map <silent> ge <Plug>CamelCaseMotion_ge
-        sunmap w
-        sunmap b
-        sunmap e
-        sunmap ge
-      ]])
-    end,
+    config = function() require('configs.others').camelCaseMotion() end,
   },
   { 'ggandor/lightspeed.nvim' },
 
