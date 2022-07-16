@@ -66,15 +66,8 @@ telescope.setup{
   },
 }
 
--- call load_extension, somewhere after telescope setup function
-local neoclip_status, neoclip = pcall(require, "neoclip")
-if (neoclip_status) then
-  print(neoclip_status)
-  neoclip.setup{ enable_persistent_history = true }
-  telescope.load_extension('neoclip')
-end
-
 telescope.load_extension('project')
 telescope.load_extension('file_browser')
 telescope.load_extension('git_worktree')
 telescope.load_extension('refactoring')
+telescope.load_extension('neoclip')

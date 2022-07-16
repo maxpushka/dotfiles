@@ -84,6 +84,8 @@ vim.cmd([[
 vim.o.cursorline = true
 --set cursorcolumn
 
+vim.o.colorcolumn = 120
+
 vim.api.nvim_command([[
 " Set cursor line color on visual mode
 highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40

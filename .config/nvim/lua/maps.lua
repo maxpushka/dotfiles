@@ -1,7 +1,7 @@
 -- Description: Keymaps
 local set_keymap = require('utils').set_keymap
 
-set_keymap("n", "'", ":", {silent=false})
+set_keymap("n", ";", ":", {silent=false})
 
 -- Delete without yank
 set_keymap("n", "<leader>d", "\"_d")
@@ -55,8 +55,8 @@ set_keymap("n", "]t", ":tabnext<CR>")
 -- Windows
 
 -- Split window
-set_keymap("n", "<leader>ss", ":split<CR><C-w>w")
-set_keymap("n", "<leader>sv", ":vsplit<CR><C-w>w")
+set_keymap("n", "<leader>bh", ":split<CR><C-w>w")
+set_keymap("n", "<leader>bv", ":vsplit<CR><C-w>w")
 -- Move window
 set_keymap("", "<C-left>",  "<C-w>h")
 set_keymap("", "<C-up>",    "<C-w>k")
