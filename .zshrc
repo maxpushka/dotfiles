@@ -161,3 +161,5 @@ fi
 
 eval "$(zoxide init zsh)"
 eval "$(gh completion --shell zsh)"
+eval "$(helm completion zsh)"
+eval "$(kubectl completion zsh)"
