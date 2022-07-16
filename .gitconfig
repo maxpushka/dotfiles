@@ -26,7 +26,7 @@
   shu = stash --include-untracked
   shp = stash pop
 	sw = switch
-	up = pull --rebase
+	up = pull --ff-only
 	wa = worktree add
 	wl = worktree list
 	wm = worktree move
