@@ -1,6 +1,8 @@
 -- Fundamentals --{{{
 -- ---------------------------------------------------------------------
 
+vim.g.mapleader = ' '
+
 vim.cmd('autocmd!')
 vim.o.swapfile = false
 vim.opt.compatible = false

@@ -31,3 +31,7 @@
 	wl = worktree list
 	wm = worktree move
 	wrm = worktree remove
+[pull]
+	ff = only
+[ghq]
+	root = ~/dev

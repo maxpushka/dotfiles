@@ -104,13 +104,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias {v,nvim}="nvim"
+alias v="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
-alias ide="tmux new-session \; split -v -p 30 \; split -h -p 66"
 alias d="docker"
 alias dc="docker-compose"
 alias gi="gitui"
+
+alias semacs="/usr/bin/emacs --daemon &"
+alias emacs='emacsclient --create-frame --alternate-editor="" &'
 
 # explorer function
 e () {
@@ -159,7 +161,7 @@ if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
 
-eval "$(zoxide init zsh)"
-eval "$(gh completion --shell zsh)"
-eval "$(helm completion zsh)"
-eval "$(kubectl completion zsh)"
+[ -s "$(command -v zoxide)" ]  && eval "$(zoxide init zsh)"
+[ -s "$(command -v gh)" ]      && eval "$(gh completion --shell zsh)"
+[ -s "$(command -v helm)" ]    && eval "$(helm completion zsh)"
+[ -s "$(command -v kubectl)" ] && eval "$(kubectl completion zsh)"

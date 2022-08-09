@@ -7,7 +7,7 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 -- Global remapping
 ------------------------------
-telescope.setup{
+telescope.setup {
   dynamic_preview_title = true,
   defaults = {
     mappings = {
@@ -51,13 +51,13 @@ telescope.setup{
               for _, winid in ipairs(winids) do
                 if vim.tbl_contains(tabwins, winid) then
                   local new_buf = vim.F.if_nil(table.remove(replacement_buffers),
-                  -- if no alternative available, create unlisted scratch buffer
-                  vim.api.nvim_create_buf(false, true))
+                    -- if no alternative available, create unlisted scratch buffer
+                    vim.api.nvim_create_buf(false, true))
                   vim.api.nvim_win_set_buf(winid, new_buf)
                 end
               end
               -- remove buffer at last
-              vim.api.nvim_buf_delete(bufnr, {force = true})
+              vim.api.nvim_buf_delete(bufnr, { force = true })
             end)
           end
         }
@@ -71,3 +71,4 @@ telescope.load_extension('file_browser')
 telescope.load_extension('git_worktree')
 telescope.load_extension('refactoring')
 telescope.load_extension('neoclip')
+telescope.load_extension('notify')
