@@ -1,5 +1,5 @@
 [user]
-	name = maxpushka
+	name = Max Pushkarov
 [init]
 	defaultBranch = main
 [core]
@@ -22,11 +22,12 @@
 	rs = restore
 	rss = restore --staged
 	st = status
-  sh = stash
-  shu = stash --include-untracked
-  shp = stash pop
+	sh = stash
+	shu = stash --include-untracked
+	shp = stash pop
 	sw = switch
 	up = pull --ff-only
+	w = worktree
 	wa = worktree add
 	wl = worktree list
 	wm = worktree move
