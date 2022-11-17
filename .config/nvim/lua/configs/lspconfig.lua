@@ -86,7 +86,7 @@ cmp.setup({
 	},
 })
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lsp_formatting = function(bufnr)
@@ -166,19 +166,17 @@ tabnine:setup({
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
 	ensure_installed = {
+		"tailwindcss",
 		"sumneko_lua",
-		"stylua",
 
 		"gopls",
-		"delve",
-		"golangci-lint",
+		"golangci_lint_ls",
 
-		"typescript-language-server",
-		"node-debug2-adapter",
-		"eslint_d",
-		"prettierd",
+		"tsserver",
+		"html",
 
-		"rust-analyzer",
+		"rust_analyzer",
+		"ansiblels",
 	},
 })
 
