@@ -157,6 +157,7 @@ function ltree {
   fi
 }
 
+alias ns="notify-send $(tmux display-message -p '#S:#P')"
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi

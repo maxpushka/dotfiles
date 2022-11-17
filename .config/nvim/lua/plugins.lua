@@ -322,21 +322,22 @@ local plugins = {
 	{
 		"mfussenegger/nvim-dap",
 		module = "dap",
-		setup = function()
-			local set_keymap = require("utils").set_keymap
-			set_keymap("n", "<leader>dc", '<cmd>lua require"dap".continue()<CR>')
-			set_keymap("n", "<leader>dv", '<cmd>lua require"dap".step_over()<CR>')
-			set_keymap("n", "<leader>di", '<cmd>lua require"dap".step_into()<CR>')
-			set_keymap("n", "<leader>do", '<cmd>lua require"dap".step_out()<CR>')
-			set_keymap("n", "<leader>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>')
-
+		config = function()
 			require("configs.dap")
 		end,
 	},
 
-	{ "leoluz/nvim-dap-go" },
+	{
+		"leoluz/nvim-dap-go",
+		after = "nvim-dap",
+		config = function()
+			require("dap-go").setup()
+			require("utils").set_keymap("n", "<leader>dt", "<cmd>lua require('dap-go').debug_test()<CR>")
+		end,
+	},
 	{
 		"mfussenegger/nvim-dap-python",
+		after = "nvim-dap",
 		config = function()
 			require("configs.others").python_dap()
 		end,
