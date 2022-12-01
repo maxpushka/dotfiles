@@ -3,7 +3,6 @@
 
 vim.g.mapleader = " "
 
-vim.cmd("autocmd!")
 vim.o.swapfile = false
 vim.opt.compatible = false
 vim.o.number = true
@@ -14,8 +13,6 @@ vim.o.fileencodings = "utf-8,sjis,euc-jp,latin,cp1251,koi8-r,cp866"
 vim.o.encoding = "utf-8"
 vim.o.guifont = "*"
 vim.o.guifontwide = "*"
-vim.o.title = true
-vim.o.background = "dark"
 vim.o.backup = false
 vim.o.hlsearch = true
 vim.o.showcmd = true
@@ -87,23 +84,6 @@ vim.o.cursorline = true
 --set cursorcolumn
 
 vim.o.colorcolumn = 120
-
-vim.api.nvim_command([[
-" Set cursor line color on visual mode
-highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
-vim.cmd('highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000
-
-augroup BgHighlight
-  autocmd!
-  autocmd WinEnter * set cul
-  autocmd WinLeave * set nocul
-augroup END
-
-if &term =~ "screen"
-  autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
-  autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
-endif
-]])
 
 --}}}
 
