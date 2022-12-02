@@ -322,6 +322,14 @@ local plugins = {
 	{
 		"mfussenegger/nvim-dap",
 		module = "dap",
+    setup = function()
+      local set_keymap = require("utils").set_keymap
+      set_keymap("n", "<leader>dc", '<cmd>lua require"dap".continue()<CR>')
+      set_keymap("n", "<leader>dv", '<cmd>lua require"dap".step_over()<CR>')
+      set_keymap("n", "<leader>di", '<cmd>lua require"dap".step_into()<CR>')
+      set_keymap("n", "<leader>do", '<cmd>lua require"dap".step_out()<CR>')
+      set_keymap("n", "<leader>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>')
+    end,
 		config = function()
 			require("configs.dap")
 		end,

@@ -142,6 +142,7 @@ M.telescope = function()
 	set_keymap("n", "'b", "<cmd>Telescope buffers<cr>")
 	set_keymap("n", "'h", "<cmd>Telescope help_tags<cr>")
 	set_keymap("n", "'s", "<cmd>Telescope lsp_document_symbols<cr>")
+	set_keymap("n", "'S", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>")
 	set_keymap("n", "'q", "<cmd>Telescope quickfix<cr>")
 end
 
