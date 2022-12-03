@@ -12,9 +12,10 @@
 	c = commit
 	cl = clone --recurse-submodules
 	co = checkout
+  cp = cherry-pick
 	d = diff
 	f = fetch
-	fa = fetch --all
+	fa = git fetch --all --prune --jobs=10
 	lg = log --stat --graph
 	p = push
 	pf = push --force

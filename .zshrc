@@ -110,6 +110,7 @@ alias {n,nodejs}="node"
 alias d="docker"
 alias dc="docker-compose"
 alias gi="gitui"
+alias k="kubectl"
 
 alias semacs="/usr/bin/emacs --daemon &"
 alias emacs='emacsclient --create-frame --alternate-editor="" &'
