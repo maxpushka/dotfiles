@@ -179,6 +179,7 @@ mason_lspconfig.setup({
 
 		"rust_analyzer",
 		"ansiblels",
+    "yamlls",
 	},
 })
 

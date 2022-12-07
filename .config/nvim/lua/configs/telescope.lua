@@ -10,6 +10,10 @@ local action_state = require('telescope.actions.state')
 telescope.setup {
   dynamic_preview_title = true,
   defaults = {
+    sorting_strategy = "ascending",
+    layout_config = {
+      prompt_position = 'top',
+    },
     mappings = {
       n = {
         ["q"] = actions.close
