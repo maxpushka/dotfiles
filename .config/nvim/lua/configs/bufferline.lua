@@ -11,6 +11,7 @@ set_keymap("n", "[b", "<Cmd>BufferLineCyclePrev<CR>")
 set_keymap("n", "]B", "<Cmd>BufferLineMoveNext<CR>")
 set_keymap("n", "[B", "<Cmd>BufferLineMovePrev<CR>")
 set_keymap("n", "<leader>bb", "<Cmd>BufferLinePick<CR>")
+set_keymap("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>")
 
 bufferline.setup({
 	options = {
