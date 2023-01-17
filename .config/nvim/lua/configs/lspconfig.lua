@@ -1,4 +1,4 @@
-local status, nvim_lsp = pcall(require, "lspconfig")
+local status = pcall(require, "lspconfig")
 if not status then
 	return
 end
@@ -117,7 +117,7 @@ local on_attach = function(client, bufnr)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	buf_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  buf_set_keymap("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+	buf_set_keymap("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	buf_set_keymap("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 
@@ -179,7 +179,7 @@ mason_lspconfig.setup({
 
 		"rust_analyzer",
 		"ansiblels",
-    "yamlls",
+		"yamlls",
 	},
 })
 
@@ -202,21 +202,24 @@ null_ls.setup({
 		-- null_ls.builtins.diagnostics.eslint_d,
 		null_ls.builtins.formatting.prettierd,
 
+		null_ls.builtins.formatting.gofmt,
 		null_ls.builtins.diagnostics.golangci_lint,
+
+		null_ls.builtins.diagnostics.buf,
 	},
 	debug = false,
-	--[[ on_attach = function(client, bufnr) -- sync formatting on save
+	on_attach = function(client, bufnr) -- sync formatting on save
 		if client.supports_method("textDocument/formatting") then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
+			-- vim.api.nvim_create_autocmd("BufWritePre", {
+			--   group = augroup,
+			--   buffer = bufnr,
+			--   callback = function()
+			--     vim.lsp.buf.format({ bufnr = bufnr })
+			--   end,
+			-- })
 		end
-	end, ]]
+	end,
 })
 
 -- icon

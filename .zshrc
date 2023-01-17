@@ -74,7 +74,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git golang zsh-autosuggestions gh)
+plugins=(git golang zsh-autosuggestions gh gradle)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,10 +107,17 @@ source $ZSH/oh-my-zsh.sh
 alias v="nvim"
 alias {p,python}="python3"
 alias {n,nodejs}="node"
+alias gi="gitui"
 alias d="docker"
 alias dc="docker-compose"
-alias gi="gitui"
 alias k="kubectl"
+alias gr="gradle"
+
+alias h="history"
+alias hs="history | rg"
+
+alias sz="source ~/.zshrc"
+alias vz="nvim ~/.zshrc"
 
 alias semacs="/usr/bin/emacs --daemon &"
 alias emacs='emacsclient --create-frame --alternate-editor="" &'
@@ -162,8 +169,8 @@ alias ns="notify-send $(tmux display-message -p '#S:#P')"
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
-
-[ -s "$(command -v zoxide)" ]  && eval "$(zoxide init zsh)"
-[ -s "$(command -v gh)" ]      && eval "$(gh completion --shell zsh)"
-[ -s "$(command -v helm)" ]    && eval "$(helm completion zsh)"
-[ -s "$(command -v kubectl)" ] && eval "$(kubectl completion zsh)"
+[ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
+[ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
+[ -s "$(command -v helm)" ]     && eval "$(helm completion zsh)"
+[ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
+[ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"

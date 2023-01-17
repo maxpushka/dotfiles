@@ -12,7 +12,7 @@
 	c = commit
 	cl = clone --recurse-submodules
 	co = checkout
-  cp = cherry-pick
+	cp = cherry-pick
 	d = diff
 	f = fetch
 	fa = git fetch --all --prune --jobs=10
@@ -20,6 +20,8 @@
 	p = push
 	pf = push --force
 	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
 	rs = restore
 	rss = restore --staged
 	st = status
@@ -27,6 +29,7 @@
 	shu = stash --include-untracked
 	shp = stash pop
 	sw = switch
+	swm = switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 	up = pull --ff-only
 	w = worktree
 	wa = worktree add
@@ -35,6 +38,8 @@
 	wrm = worktree remove
 [pull]
 	ff = only
+[submodule]
+	recurse = true
 [ghq]
 	root = ~/dev
 
@@ -46,8 +51,9 @@
 [delta]
 	navigate = true    # use n and N to move between diff sections
 	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  side-by-side = true
 [merge]
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
-
+# delta end

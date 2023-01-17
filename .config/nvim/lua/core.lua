@@ -50,7 +50,7 @@ vim.o.wrap = false -- No Wrap lines
 vim.o.backspace = "start,eol,indent"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevel = 20
+vim.o.foldlevel = 100
 -- Finding files - Search down into subfolders
 vim.opt.path:append("**")
 vim.opt.wildignore:append("*/node_modules/*")
@@ -101,6 +101,8 @@ au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.flow set filetype=javascript
 
 set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
+
+autocmd FileType * setlocal shiftwidth=4 tabstop=4
 
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby   setlocal shiftwidth=2 tabstop=2

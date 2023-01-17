@@ -216,6 +216,8 @@ local plugins = {
 		end,
 	},
 
+  { "tpope/vim-sleuth" },
+
 	--- LSP stuff ---
 
 	{
