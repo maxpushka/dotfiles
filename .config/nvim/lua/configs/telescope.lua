@@ -54,7 +54,8 @@ telescope.setup {
     },
     file_ignore_patterns = {
       "vendor/*",
-      -- "%.lock",
+      "package-lock.json",
+      "%.lock",
       "__pycache__/*",
       -- "%.sqlite3",
       -- "%.ipynb",

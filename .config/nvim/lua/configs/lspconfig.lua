@@ -169,17 +169,20 @@ local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
 	ensure_installed = {
 		"tailwindcss",
-		"sumneko_lua",
+		"lua_ls",
 
 		"gopls",
 		"golangci_lint_ls",
 
 		"tsserver",
 		"html",
+		"solc",
 
 		"rust_analyzer",
 		"ansiblels",
 		"yamlls",
+
+		"clangd",
 	},
 })
 

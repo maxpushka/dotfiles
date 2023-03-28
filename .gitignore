@@ -1,3 +1,4 @@
+.code/
 .idea/
 .DS_Store
 **/.config/nvim/plugin/

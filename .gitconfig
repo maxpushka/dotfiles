@@ -30,7 +30,7 @@
 	shp = stash pop
 	sw = switch
 	swm = switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-	up = pull --ff-only
+	up = pull --ff-only --all
 	w = worktree
 	wa = worktree add
 	wl = worktree list
@@ -51,7 +51,7 @@
 [delta]
 	navigate = true    # use n and N to move between diff sections
 	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-  side-by-side = true
+	side-by-side = true
 [merge]
 	conflictstyle = diff3
 [diff]
