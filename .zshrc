@@ -9,8 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="" #"agnoster"
-fpath+=$ZSH/themes/typewritten
-autoload -U promptinit; promptinit
+autoload -Uz promptinit; promptinit
 prompt typewritten
 export TYPEWRITTEN_PROMPT_LAYOUT="pure"
 
@@ -74,9 +73,11 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git golang zsh-autosuggestions gh gradle)
-
+plugins=(git golang gh gradle)
 source $ZSH/oh-my-zsh.sh
+
+# zsh-autosuggestions plugin
+source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # User configuration
 
@@ -105,22 +106,35 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias v="nvim"
+alias c="code"
+function em { # emacs
+  # Checks if there's a frame open
+  emacsclient -n -e "(if (> (length (frame-list)) 1) ‘t)" 2> /dev/null | grep t &> /dev/null
+  if [ "$?" -eq "1" ]; then
+   emacsclient -a '' -nqc "$@" &> /dev/null
+  else
+   emacsclient -nq "$@" &> /dev/null
+  fi
+}
+
 alias {p,python}="python3"
 alias {n,nodejs}="node"
+
 alias gi="gitui"
 alias d="docker"
 alias dc="docker-compose"
 alias k="kubectl"
 alias gr="gradle"
+alias t="task"
+alias m="make"
 
 alias h="history"
-alias hs="history | rg"
+hs () {
+  history | rg "$@" | bat
+}
 
 alias sz="source ~/.zshrc"
 alias vz="nvim ~/.zshrc"
-
-alias semacs="/usr/bin/emacs --daemon &"
-alias emacs='emacsclient --create-frame --alternate-editor="" &'
 
 # explorer function
 e () {
@@ -174,3 +188,5 @@ fi
 [ -s "$(command -v helm)" ]     && eval "$(helm completion zsh)"
 [ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
 [ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"
+
+# ------------------------------------------------------------------------------
