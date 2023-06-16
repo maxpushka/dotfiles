@@ -26,11 +26,11 @@
 	rss = restore --staged
 	st = status
 	sh = stash
-	shu = stash --include-untracked
+	shu = stash --keep-index --include-untracked
 	shp = stash pop
 	sw = switch
 	swm = switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-	up = pull --ff-only --all
+	up = pull --ff-only --all --prune --jobs=10
 	w = worktree
 	wa = worktree add
 	wl = worktree list
