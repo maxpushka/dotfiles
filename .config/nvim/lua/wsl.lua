@@ -1,3 +1,5 @@
+-- Description: WSL-specific configs
+
 vim.cmd([[
 let s:clip = '/mnt/c/Windows/System32/clip.exe' 
 if executable(s:clip)

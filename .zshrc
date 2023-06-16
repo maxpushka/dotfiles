@@ -8,10 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="" #"agnoster"
-autoload -Uz promptinit; promptinit
-prompt typewritten
-export TYPEWRITTEN_PROMPT_LAYOUT="pure"
+ZSH_THEME="refined" #"frontcube"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -105,17 +102,28 @@ source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias v="nvim"
-alias c="code"
-function em { # emacs
+
+# Editors
+
+alias v="lvim"
+c () { # VSCode
+  if [ $# -eq 0 ]; then
+    code .
+  else
+    code "$@" 
+  fi
+}
+em () { # Emacs GUI
   # Checks if there's a frame open
   emacsclient -n -e "(if (> (length (frame-list)) 1) ‘t)" 2> /dev/null | grep t &> /dev/null
   if [ "$?" -eq "1" ]; then
-   emacsclient -a '' -nqc "$@" &> /dev/null
+   emacsclient -a 'nvim' -nqc "$@" &> /dev/null
   else
    emacsclient -nq "$@" &> /dev/null
   fi
 }
+
+# Aliases
 
 alias {p,python}="python3"
 alias {n,nodejs}="node"
@@ -124,17 +132,17 @@ alias gi="gitui"
 alias d="docker"
 alias dc="docker-compose"
 alias k="kubectl"
+alias h="helm"
 alias gr="gradle"
 alias t="task"
 alias m="make"
 
-alias h="history"
 hs () {
   history | rg "$@" | bat
 }
 
-alias sz="source ~/.zshrc"
-alias vz="nvim ~/.zshrc"
+alias sz="source ~/.zshrc" # sz = source zshrc
+alias mz="hx ~/.zshrc"     # mz = modify zshrc
 
 # explorer function
 e () {
