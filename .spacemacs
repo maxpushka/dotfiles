@@ -71,7 +71,7 @@ This function should only modify configuration layer settings."
      spell-checking
      syntax-checking
      version-control
-     treemacs)
+     (treemacs :variables treemacs-collapse-dirs 10))
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -82,7 +82,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(bazel-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -594,12 +594,13 @@ before packages are loaded."
   (setq-default evil-escape-key-sequence "jk")
   (setq vc-follow-symlinks t)
   (menu-bar-mode t)
-  (setq mac-command-modifier    'super
-      ns-command-modifier       'super
-      mac-option-modifier       'meta
-      ns-option-modifier        'meta
-      mac-right-option-modifier 'none
-      ns-right-option-modifier  'none)
+  (setq
+     mac-command-modifier      'control
+     ns-command-modifier       'control
+     mac-option-modifier       'meta
+     ns-option-modifier        'meta
+     mac-right-option-modifier 'none
+     ns-right-option-modifier  'none)
 )
 
 
