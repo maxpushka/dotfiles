@@ -38,6 +38,8 @@
 	wrm = worktree remove
 [pull]
 	ff = only
+[push]
+  autoSetupRemote = true
 [submodule]
 	recurse = true
 [ghq]
