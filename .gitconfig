@@ -33,6 +33,7 @@
 	up = pull --ff-only --all --prune --jobs=10
 	w = worktree
 	wa = worktree add
+	wab = "!f() { git worktree add \"$(git rev-parse --show-toplevel)/../$1\" \"$1\"; }; f"
 	wl = worktree list
 	wm = worktree move
 	wrm = worktree remove
@@ -58,4 +59,6 @@
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
+[pager]
+	blame = delta
 # delta end
