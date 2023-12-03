@@ -89,6 +89,7 @@ source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='hx'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
