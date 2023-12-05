@@ -111,16 +111,16 @@ c () { # VSCode
   if [ $# -eq 0 ]; then
     code .
   else
-    code "$@" 
+    code "$@"
   fi
 }
 em () { # Emacs GUI
   # Checks if there's a frame open
   emacsclient -n -e "(if (> (length (frame-list)) 1) ‘t)" 2> /dev/null | grep t &> /dev/null
   if [ "$?" -eq "1" ]; then
-   emacsclient -a 'nvim' -nqc "$@" &> /dev/null
+   emacsclient -a 'nvim' -nqc "$@" #&> /dev/null
   else
-   emacsclient -nq "$@" &> /dev/null
+   emacsclient -nq "$@" #&> /dev/null
   fi
 }
 
@@ -137,6 +137,7 @@ alias h="helm"
 alias gr="gradle"
 alias t="task"
 alias m="make"
+alias ca="cargo"
 
 hs () {
   history | rg "$@" | bat
