@@ -193,10 +193,12 @@ alias ns="notify-send $(tmux display-message -p '#S:#P')"
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
   tmux new-session -A -s main;
 fi
+
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
 [ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
 [ -s "$(command -v helm)" ]     && eval "$(helm completion zsh)"
 [ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
 [ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"
+[ -s "$(command -v skaffold)" ] && eval "$(skaffold completion zsh)"
 
 # ------------------------------------------------------------------------------
