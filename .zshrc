@@ -158,37 +158,9 @@ e () {
   fi
 }
 
-function isWindows {
-  [[ $PWD == *"/mnt/"* ]]
-}
 
-# choose right git exectutable for WSL
-function git {
-  if isWindows; then
-    echo "[using Git for Windows]"
-    git.exe "$@"
-  else
-    /usr/bin/git "$@"
-  fi
-}
-
-alias ls=choose_ls
-function choose_ls {
-  if isWindows; then
-    powershell.exe dir
-  else
-    exa --icons --sort=type --git --color=always "$@"
-  fi
-}
-
-function ltree {
-  if isWindows; then
-    tree "$@"
-  else
-    ls --all --tree -L 2 "$@"
-  fi
-}
-
+alias ls='exa --icons --group-directories-first --color=always --git "$@"' # --git
+alias ltree='ls --all --tree -L 3 "$@"'
 
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
 [ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
