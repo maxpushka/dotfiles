@@ -158,6 +158,11 @@ e () {
   fi
 }
 
+# cd into any repo that is tracked with ghq
+zr () {
+  local dir
+  dir=$(ghq list --full-path | awk '!seen[$0]++' | fzf) && cd "$dir"
+}
 
 alias ls='exa --icons --group-directories-first --color=always --git "$@"' # --git
 alias ltree='ls --all --tree -L 3 "$@"'
