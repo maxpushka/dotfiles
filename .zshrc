@@ -164,6 +164,27 @@ zr () {
   dir=$(ghq list --full-path | awk '!seen[$0]++' | fzf) && cd "$dir"
 }
 
+# cd into any worktree of a bare git repo
+function zw() {
+    local bare_repo_path
+    local worktree_dir
+    local relative_path
+
+    # Find the bare repository path
+    bare_repo_path=$(git worktree list --porcelain | grep '^worktree ' | head -1 | cut -d ' ' -f2)
+
+    # Parse worktree paths, excluding the bare repo, trim the bare repo path, and use fzf to select
+    relative_path=$(git worktree list --porcelain | grep '^worktree ' | cut -d ' ' -f2 | grep -v "^$bare_repo_path$" | awk -v base="$bare_repo_path" '{gsub(base, ""); print}' | fzf --height 40% --layout=reverse)
+
+    # Check if a worktree was selected
+    if [[ -n $relative_path ]]; then
+        worktree_dir="${bare_repo_path}${relative_path}"
+        cd "$worktree_dir" || return
+    else
+        echo "No worktree selected."
+    fi
+} 
+
 alias ls='exa --icons --group-directories-first --color=always --git "$@"' # --git
 alias ltree='ls --all --tree -L 3 "$@"'
 
