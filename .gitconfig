@@ -26,6 +26,7 @@
 	rss = restore --staged
 	st = status
 	sh = stash
+	shl = stash list
 	shu = stash --keep-index --include-untracked
 	shp = stash pop
 	sw = switch
