@@ -106,21 +106,22 @@ export EDITOR='hx'
 
 # Editors
 
-alias v="lvim"
-c () { # VSCode
+function c { # VSCode
   if [ $# -eq 0 ]; then
     code .
   else
     code "$@"
   fi
 }
+
 em () { # Emacs GUI
   # Checks if there's a frame open
   emacsclient -n -e "(if (> (length (frame-list)) 1) ‘t)" 2> /dev/null | grep t &> /dev/null
   if [ "$?" -eq "1" ]; then
-   emacsclient -a 'nvim' -nqc "$@" #&> /dev/null
+    emacsclient -a 'nvim' -nqc "$@" #&> /dev/null
   else
-   emacsclient -nq "$@" #&> /dev/null
+    emacs --daemon
+    emacsclient -nq "$@" &> /dev/null
   fi
 }
 
@@ -128,13 +129,12 @@ em () { # Emacs GUI
 
 alias {p,python}="python3"
 alias {n,nodejs}="node"
-
+alias v="lvim"
 alias gi="gitui"
 alias d="docker"
 alias dc="docker-compose"
 alias k="kubectl"
 alias h="helm"
-alias gr="gradle"
 alias t="task"
 alias m="make"
 alias ca="cargo"
