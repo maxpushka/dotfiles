@@ -3,7 +3,7 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = nvim
+	editor = hx
 	excludesFile = ~/.gitignore
 [alias]
 	a = add
