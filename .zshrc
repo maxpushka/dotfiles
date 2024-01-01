@@ -114,7 +114,7 @@ function c { # VSCode
   fi
 }
 
-em () { # Emacs GUI
+function em { # Emacs GUI
   # Checks if there's a frame open
   emacsclient -n -e "(if (> (length (frame-list)) 1) ‘t)" 2> /dev/null | grep t &> /dev/null
   if [ "$?" -eq "1" ]; then
@@ -138,16 +138,15 @@ alias h="helm"
 alias t="task"
 alias m="make"
 alias ca="cargo"
+alias sz="source ~/.zshrc" # sz = source zshrc
+alias mz="hx ~/.zshrc"     # mz = modify zshrc
 
 hs () {
   history | rg "$@" | bat
 }
 
-alias sz="source ~/.zshrc" # sz = source zshrc
-alias mz="hx ~/.zshrc"     # mz = modify zshrc
-
 # explorer function
-e () {
+function e {
   if [ -d "/mnt/c" ]; then
     if [ $# -eq 0 ]; then
       explorer.exe `wslpath -w "${PWD}/${dir}"`;
@@ -159,13 +158,13 @@ e () {
 }
 
 # cd into any repo that is tracked with ghq
-zr () {
+function zr {
   local dir
   dir=$(ghq list --full-path | awk '!seen[$0]++' | fzf) && cd "$dir"
 }
 
 # cd into any worktree of a bare git repo
-function zw() {
+function zw {
     local bare_repo_path
     local worktree_dir
     local relative_path
@@ -183,7 +182,28 @@ function zw() {
     else
         echo "No worktree selected."
     fi
-} 
+}
+
+# fetch all update from all repos
+# that are tracked by ghq
+function up {
+  init=$(pwd)
+
+  for repo in $(ghq list --full-path | awk '!seen[$0]++'); do
+    cd ${repo}
+    remote=$(git config --get remote.origin.url)
+
+    # Skip if repo has no remote
+    if [[ -n ${remote} ]]; then
+      echo -e "\033[0;32mFetching ${repo}\033[0m"
+      git fa
+    else
+      echo -e "\033[0;33mSkipping ${repo}\033[0m"
+    fi
+  done
+
+  cd ${init}
+}
 
 alias ls='exa --icons --group-directories-first --color=always --git "$@"' # --git
 alias ltree='ls --all --tree -L 3 "$@"'
