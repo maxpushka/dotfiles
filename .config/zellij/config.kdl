@@ -1,0 +1,9 @@
+keybinds {
+    unbind "Ctrl q"
+}
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}
+
