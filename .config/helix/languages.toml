@@ -1,0 +1,21 @@
+[[language]]
+name = "helm"
+scope = "source.yaml"
+file-types = [{ suffix = "templates" }, "tpl"] # "yaml", "yml"
+roots = ["Chart.yaml"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["helm"]
+grammar = "gotmpl"
+
+[language-server.helm]
+command = "helm_ls"
+args = ["serve"]
+
+[language-server.golangci-lint]
+command = "golangci-lint-langserver"
+config = { command = ["/opt/homebrew/bin/golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1"] }
+
+[[language]]
+name = "go"
+language-servers = ["gopls", "golangci-lint"]

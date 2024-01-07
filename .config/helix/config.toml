@@ -1,0 +1,17 @@
+theme = "github_dark_high_contrast" # "ayu_evolve"
+
+[editor]
+line-number = "relative"
+
+[editor.file-picker]
+hidden = false
+
+[keys.insert.j]
+k = "normal_mode" # Maps `jk` to exit insert mode:w
+
+[keys.normal."minus"]
+h = ":lang helm"
+y = ":lang yaml"
+
+[keys.normal."space"]
+F = "file_picker_in_current_buffer_directory"
