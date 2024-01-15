@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -214,5 +214,6 @@ alias ltree='ls --all --tree -L 3 "$@"'
 [ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
 [ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"
 [ -s "$(command -v skaffold)" ] && eval "$(skaffold completion zsh)"
+[ -s "$(command -v werf)" ]     && eval "$(werf completion --shell=zsh)"
 
 # ------------------------------------------------------------------------------
