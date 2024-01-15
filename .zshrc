@@ -107,11 +107,13 @@ export EDITOR='hx'
 # Editors
 
 function c { # VSCode
+  local args=''
   if [ $# -eq 0 ]; then
-    code .
+    args='.'
   else
-    code "$@"
+    args="$@"
   fi
+  code ${args}
 }
 
 function em { # Emacs GUI
