@@ -216,4 +216,8 @@ alias ltree='ls --all --tree -L 3 "$@"'
 [ -s "$(command -v skaffold)" ] && eval "$(skaffold completion zsh)"
 [ -s "$(command -v werf)" ]     && eval "$(werf completion --shell=zsh)"
 
+if [[ $TERM == "xterm-kitty" && -z $ZELLIJ_SESSION_NAME ]]; then
+  zellij attach main
+fi
+
 # ------------------------------------------------------------------------------
