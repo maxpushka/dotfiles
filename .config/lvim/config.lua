@@ -168,6 +168,7 @@ lvim.builtin.treesitter.highlight.enable = true
 -- Additional Plugins
 lvim.plugins = {
   { "ggandor/lightspeed.nvim" },
+  { "tpope/vim-surround" },
   -- {
   --   "folke/trouble.nvim",
   --   cmd = "TroubleToggle",
