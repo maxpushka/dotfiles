@@ -10,6 +10,8 @@
 	aa = add --all
 	b = branch
 	c = commit
+	ca = commit --amend
+	can = commit --amend --no-edit
 	cc = "!f() { DATE=\"$1\"; shift; GIT_COMMITTER_DATE=$DATE git commit --date=\"$DATE\" \"$@\"; }; f" # custom commit
 	cl = clone --recurse-submodules
 	co = checkout
