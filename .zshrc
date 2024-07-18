@@ -129,7 +129,6 @@ function em { # Emacs GUI
 
 # Aliases
 
-alias {p,python}="python3"
 alias {n,nodejs}="node"
 alias v="lvim"
 alias gi="gitui"
@@ -207,7 +206,7 @@ function up {
   cd ${init}
 }
 
-alias ls='exa --icons --group-directories-first --color=always --git "$@"' # --git
+alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
 alias ltree='ls --all --tree -L 3 "$@"'
 
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
