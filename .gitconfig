@@ -17,6 +17,9 @@
 	co = checkout
 	cp = cherry-pick
 	d = diff
+	ds = diff --staged
+	dst = diff --stat
+	dsst = diff --stat --staged
 	f = fetch
 	fa = fetch --all --prune --jobs=10
 	lg = log --stat --graph
