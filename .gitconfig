@@ -25,6 +25,7 @@
 	lg = log --stat --graph
 	p = push
 	pf = push --force
+	pr = pull --rebase
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
