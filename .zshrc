@@ -208,7 +208,7 @@ function up {
 }
 
 alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
-alias ltree='ls --all --tree -L 3 "$@"'
+alias ltree='ls --all --tree -L 3 --ignore-glob .git/ "$@"'
 
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
 [ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
