@@ -24,7 +24,7 @@
 	fa = fetch --all --prune --jobs=10
 	lg = log --stat --graph
 	p = push
-	pf = push --force
+	pf = push --force-with-lease --force-if-includes
 	pr = pull --rebase
 	rb = rebase
 	rba = rebase --abort
