@@ -18,6 +18,7 @@
 	cp = cherry-pick
 	d = diff
 	ds = diff --staged
+	dsc = "!f() { git ds \"$@\" | pbcopy; }; f"
 	dst = diff --stat
 	dsst = diff --stat --staged
 	f = fetch
