@@ -33,9 +33,10 @@
 	rs = restore
 	rss = restore --staged
 	st = status
-	sh = stash
+	sh = stash --keep-index --include-untracked
 	shl = stash list
-	shu = stash --keep-index --include-untracked
+	sht = stash --keep-index
+	shu = stash --include-untracked
 	shp = stash pop
 	sw = switch
 	swm = switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
