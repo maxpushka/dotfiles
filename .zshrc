@@ -129,11 +129,12 @@ function em { # Emacs GUI
 
 # Aliases
 
+alias g="git"
 alias {n,nodejs}="node"
 alias v="lvim"
-alias gi="gitui"
+alias gi="gitui --watcher"
 alias d="docker"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias k="kubectl"
 alias h="helm"
 alias tf="terraform"
@@ -208,7 +209,7 @@ function up {
 }
 
 alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
-alias ltree='ls --all --tree -L 3 --ignore-glob .git/ "$@"'
+alias ltree='ls --all --tree -L 3 --ignore-glob ".git/" "$@"'
 
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
 [ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
@@ -217,6 +218,7 @@ alias ltree='ls --all --tree -L 3 --ignore-glob .git/ "$@"'
 [ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"
 [ -s "$(command -v skaffold)" ] && eval "$(skaffold completion zsh)"
 [ -s "$(command -v werf)" ]     && eval "$(werf completion --shell=zsh)"
+[ -s "$(command -v cast)" ]     && eval "$(cast completions zsh)"
 
 if [[ $TERM == "xterm-kitty" && -z $ZELLIJ_SESSION_NAME ]]; then
   zellij -s main || zellij attach main
