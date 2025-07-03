@@ -19,7 +19,8 @@ lvim.colorscheme = "lunar"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-vim.keymap.set("i", "jk", "<Esc>")
+lvim.keys.normal_mode["<leader>E"] = ":NvimTreeFocus<cr>"
+lvim.keys.insert_mode["jk"] = "<Esc>"
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -67,22 +68,33 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.relativenumber = true
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.nvimtree.setup.renderer.indent_markers.enable = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
+  "dockerfile",
+
   "c",
   "cpp",
-  "javascript",
-  "json",
+  "rust",
   "lua",
+
   "python",
+  "java",
+
+  "javascript",
   "typescript",
   "tsx",
   "css",
-  "java",
+
   "yaml",
+  "toml",
+  "json",
+
+  "go", "gomod", "gosum", "gotmpl", "gowork"
 }
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -165,7 +177,12 @@ lvim.builtin.treesitter.highlight.enable = true
 
 -- Additional Plugins
 lvim.plugins = {
-  { "ggandor/lightspeed.nvim" },
+  {
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").set_default_mappings()
+    end,
+  },
   { "tpope/vim-surround" },
   {
     "zbirenbaum/copilot.lua",
@@ -183,7 +200,25 @@ lvim.plugins = {
         panel = { enabled = false }
       })
     end
-  }
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    lazy = false,
+    config = function()
+      require("refactoring").setup()
+      -- load refactoring Telescope extension
+      require("telescope").load_extension("refactoring")
+      vim.keymap.set(
+        {"n", "x"},
+        "<leader>rr",
+        function() require('telescope').extensions.refactoring.refactors() end
+      )
+    end,
+  },
   -- {
   --   "folke/trouble.nvim",
   --   cmd = "TroubleToggle",
@@ -191,11 +226,11 @@ lvim.plugins = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = { "*.json", "*.jsonc" },
---   -- enable wrap mode for json files only
---   command = "setlocal wrap",
--- })
+vim.api.nvim_create_autocmd("BufEnter", {
+  -- enable wrap mode for files above only
+  pattern = { "*.json", "*.jsonc", "*.md", "*.txt" },
+  command = "setlocal wrap",
+})
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "zsh",
 --   callback = function()
