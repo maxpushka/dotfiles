@@ -1,9 +1,42 @@
 keybinds {
     unbind "Ctrl q"
+    locked {
+        bind "Ctrl Alt l" { MoveFocusOrTab "Right"; }
+        bind "Ctrl Alt h" { MoveFocusOrTab "Left"; }
+        bind "Ctrl Alt j" { MoveFocus "Down"; }
+        bind "Ctrl Alt k" { MoveFocus "Up"; }
+
+        bind "Ctrl Alt Shift l" { MoveTab "Right"; }
+        bind "Ctrl Alt Shift h" { MoveTab "Left"; }
+
+        bind "Ctrl Alt t" { NewTab; }
+        bind "Ctrl Alt n" { NewPane "Right"; }
+        bind "Ctrl Alt f" { ToggleFloatingPanes; }
+        bind "Ctrl Alt m" { ToggleFocusFullscreen; }
+
+        bind "Ctrl Alt Right" { Resize "Increase"; }
+        bind "Ctrl Alt Left"  { Resize "Decrease"; }
+    }
+    normal {
+        bind "Ctrl Alt l" { MoveFocusOrTab "Right"; }
+        bind "Ctrl Alt h" { MoveFocusOrTab "Left"; }
+        bind "Ctrl Alt j" { MoveFocus "Down"; }
+        bind "Ctrl Alt k" { MoveFocus "Up"; }
+
+        bind "Ctrl Alt Shift l" { MoveTab "Right"; }
+        bind "Ctrl Alt Shift h" { MoveTab "Left"; }
+
+        bind "Ctrl Alt t" { NewTab; }
+        bind "Ctrl Alt n" { NewPane "Right"; }
+        bind "Ctrl Alt f" { ToggleFloatingPanes; }
+        bind "Ctrl Alt m" { ToggleFocusFullscreen; }
+
+        bind "Ctrl Alt Right" { Resize "Increase"; }
+        bind "Ctrl Alt Left"  { Resize "Decrease"; }
+    }
 }
 ui {
     pane_frames {
         rounded_corners true
     }
 }
-
