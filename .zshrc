@@ -80,6 +80,7 @@ plugins=(git golang)
 # source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 eval "$(starship init zsh)"
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ##########################################################
 # User configuration
