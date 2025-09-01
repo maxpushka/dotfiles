@@ -1,14 +1,17 @@
+autoload -Uz compinit
+compinit
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="refined" #"frontcube"
+# ZSH_THEME="refined" #"frontcube"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,12 +74,16 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git golang)
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # zsh-autosuggestions plugin
-source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+eval "$(starship init zsh)"
+
+##########################################################
 # User configuration
+##########################################################
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -90,21 +97,6 @@ source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 #   export EDITOR='mvim'
 # fi
 export EDITOR='hx'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# Editors
 
 function c { # VSCode
   local args=''
@@ -127,11 +119,28 @@ function em { # Emacs GUI
   fi
 }
 
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
 # Aliases
+
+alias l='ls -lha'
+alias ll='ls -lh'
+alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
+alias ltree='ls --all --tree -L 3 --ignore-glob ".git/" "$@"'
 
 alias g="git"
 alias {n,nodejs}="node"
-alias v="lvim"
+alias v="nvim"
 alias gi="gitui --watcher"
 alias d="docker"
 alias dc="docker compose"
@@ -144,8 +153,20 @@ alias ca="cargo"
 alias sz="source ~/.zshrc" # sz = source zshrc
 alias mz="hx ~/.zshrc"     # mz = modify zshrc
 
+alias gor="go run"
+alias got="go test"
+alias gob="go build"
+alias gov="go vet"
+alias goh="go help"
+alias gof="go fmt"
+alias gol="go list"
+
 hs () {
   history | rg "$@" | bat
+}
+
+hh () {
+  "$@" --help | less
 }
 
 # explorer function
@@ -208,19 +229,13 @@ function up {
   cd ${init}
 }
 
-alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
-alias ltree='ls --all --tree -L 3 --ignore-glob ".git/" "$@"'
-
 [ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
 [ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
 [ -s "$(command -v helm)" ]     && eval "$(helm completion zsh)"
 [ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
-[ -s "$(command -v minikube)" ] && eval "$(minikube completion zsh)"
-[ -s "$(command -v skaffold)" ] && eval "$(skaffold completion zsh)"
-[ -s "$(command -v werf)" ]     && eval "$(werf completion --shell=zsh)"
 [ -s "$(command -v cast)" ]     && eval "$(cast completions zsh)"
 
-if [[ $TERM == "xterm-kitty" && -z $ZELLIJ_SESSION_NAME ]]; then
+if [[ $TERM == xterm* && -z $ZELLIJ_SESSION_NAME ]]; then
   zellij -s main || zellij attach main
 fi
 
