@@ -12,7 +12,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.proto" },
+  -- { import = "astrocommunity.pack.proto" }, -- NOTE: it's buggy and overrides my proto changes with current file state on save
   { import = "astrocommunity.pack.sql" },
 
   { import = "astrocommunity.pack.cpp" },
