@@ -134,10 +134,13 @@ function em { # Emacs GUI
 
 # Aliases
 
+alias sz='source ~/.zshrc'
+alias mz='nvim ~/.zshrc'
+
 alias l='ls -lha'
 alias ll='ls -lh'
-alias ls='eza --icons --group-directories-first --color=always --git "$@"' # --git
-alias ltree='ls --all --tree -L 3 --ignore-glob ".git/" "$@"'
+alias ls='eza --icons --group-directories-first --color=always --git' # --git
+alias ltree='ls --all --tree -L 3 --ignore-glob ".git/"'
 
 alias g="git"
 alias {n,nodejs}="node"
@@ -230,11 +233,13 @@ function up {
   cd ${init}
 }
 
-[ -s "$(command -v zoxide)" ]   && eval "$(zoxide init zsh)"
-[ -s "$(command -v gh)" ]       && eval "$(gh completion --shell zsh)"
-[ -s "$(command -v helm)" ]     && eval "$(helm completion zsh)"
-[ -s "$(command -v kubectl)" ]  && eval "$(kubectl completion zsh)"
-[ -s "$(command -v cast)" ]     && eval "$(cast completions zsh)"
+[ -s "$(command -v docker)" ] && eval "$(docker completion zsh)"
+[ -s "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+[ -s "$(command -v gh)" ] && eval "$(gh completion --shell zsh)"
+[ -s "$(command -v helm)" ] && eval "$(helm completion zsh)"
+[ -s "$(command -v kubectl)" ] && eval "$(kubectl completion zsh)"
+[ -s "$(command -v cast)" ] && eval "$(cast completions zsh)"
+[ -s "$(command -v task)" ] && eval "$(task --completion zsh)"
 
 if [[ $TERM == xterm* && -z $ZELLIJ_SESSION_NAME ]]; then
   zellij -s main || zellij attach main
