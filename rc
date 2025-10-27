@@ -1,0 +1,177 @@
+##################################################
+# Evals
+##################################################
+
+export SHELLNAME=$(basename $SHELL)
+if [ "$SHELLNAME" == "zsh" ]; then
+  autoload -Uz compinit
+  compinit
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+eval "$(starship init $SHELLNAME)"
+
+##################################################
+# Environment variables
+##################################################
+
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+export EDITOR='nvim'
+
+if [ "$SHELLNAME" == "zsh" ]; then
+  # Uncomment the following line to use case-sensitive completion.
+  # CASE_SENSITIVE="true"
+
+  # Uncomment the following line to use hyphen-insensitive completion.
+  # Case-sensitive completion must be off. _ and - will be interchangeable.
+  HYPHEN_INSENSITIVE="true"
+
+  # Uncomment the following line to enable command auto-correction.
+  ENABLE_CORRECTION="true"
+fi
+
+export GOPATH=$(go env GOPATH)
+export GOROOT=$(go env GOROOT)
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+##################################################
+# Completions
+##################################################
+
+[ -s "$(command -v docker)" ] && eval "$(docker completion $SHELLNAME)"
+[ -s "$(command -v zoxide)" ] && eval "$(zoxide init $SHELLNAME)"
+[ -s "$(command -v gh)" ] && eval "$(gh completion --shell $SHELLNAME)"
+[ -s "$(command -v helm)" ] && eval "$(helm completion $SHELLNAME)"
+[ -s "$(command -v kubectl)" ] && eval "$(kubectl completion $SHELLNAME)"
+[ -s "$(command -v cast)" ] && eval "$(cast completions $SHELLNAME)"
+[ -s "$(command -v task)" ] && eval "$(task --completion $SHELLNAME)"
+
+##################################################
+# Aliases
+##################################################
+
+alias sz='source ~/."$SHELLNAME"rc'
+alias mz='$EDITOR ~/."$SHELLNAME"rc'
+alias editgit='$EDITOR ~/.config/git/config'
+
+
+alias l='ls -lha'
+alias ll='ls -lh'
+alias ls='eza --icons --group-directories-first --color=always --git' # --git
+alias ltree='ls --all --tree -L 3 --ignore-glob ".git/"'
+
+alias g="git"
+alias {n,nodejs}="node"
+alias v="nvim"
+alias gi="gitui --watcher"
+alias d="docker"
+alias dc="docker compose"
+alias k="kubectl"
+alias h="helm"
+alias tf="terraform"
+alias t="task"
+alias m="make"
+alias ca="cargo"
+
+alias gor="go run"
+alias got="go test"
+alias gob="go build"
+alias gov="go vet"
+alias goh="go help"
+alias gof="go fmt"
+alias gol="go list"
+
+##################################################
+# Functions
+##################################################
+
+hs () {
+  history | rg "$@" | bat
+}
+
+hh () {
+  "$@" --help | less
+}
+
+# VSCode
+function c {
+  local args=''
+  if [ $# -eq 0 ]; then
+    args='.'
+  else
+    args="$@"
+  fi
+  code ${args}
+}
+
+# explorer function
+function e {
+  if [ -d "/mnt/c" ]; then
+    if [ $# -eq 0 ]; then
+      explorer.exe `wslpath -w "${PWD}/${dir}"`;
+    fi
+    for dir in "$@"; do
+      explorer.exe `wslpath -w "${PWD}/${dir}"`;
+    done
+  fi
+}
+
+# cd into any repo that is tracked with ghq
+function zr {
+  local dir
+  dir=$(ghq list --full-path | awk '!seen[$0]++' | fzf) && cd "$dir"
+}
+
+# cd into any worktree of a bare git repo
+function zw {
+    local bare_repo_path
+    local worktree_dir
+    local relative_path
+
+    # Find the bare repository path
+    bare_repo_path=$(git worktree list --porcelain | grep '^worktree ' | head -1 | cut -d ' ' -f2)
+
+    # Parse worktree paths, excluding the bare repo, trim the bare repo path, and use fzf to select
+    relative_path=$(git worktree list --porcelain | grep '^worktree ' | cut -d ' ' -f2 | grep -v "^$bare_repo_path$" | awk -v base="$bare_repo_path" '{gsub(base, ""); print}' | fzf --height 40% --layout=reverse)
+
+    # Check if a worktree was selected
+    if [[ -n $relative_path ]]; then
+        worktree_dir="${bare_repo_path}${relative_path}"
+        cd "$worktree_dir" || return
+    else
+        echo "No worktree selected."
+    fi
+}
+
+# fetch all update from all repos
+# that are tracked by ghq
+function up {
+  init=$(pwd)
+
+  for repo in $(ghq list --full-path | awk '!seen[$0]++'); do
+    cd ${repo}
+    remote=$(git config --get remote.origin.url)
+
+    # Skip if repo has no remote
+    if [[ -n ${remote} ]]; then
+      echo -e "\033[0;32mFetching ${repo}\033[0m"
+      git fa
+    else
+      echo -e "\033[0;33mSkipping ${repo}\033[0m"
+    fi
+  done
+
+  cd ${init}
+}
+
+# if [[ $TERM == xterm* && -z $ZELLIJ_SESSION_NAME ]]; then
+#   zellij -s main || zellij attach main
+# fi
+
