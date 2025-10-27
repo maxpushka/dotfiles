@@ -6,7 +6,9 @@ export SHELLNAME=$(basename $SHELL)
 if [ "$SHELLNAME" == "zsh" ]; then
   autoload -Uz compinit
   compinit
-  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  if [ -s "$(command -v brew)" ]; then
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  fi
 fi
 
 eval "$(starship init $SHELLNAME)"
