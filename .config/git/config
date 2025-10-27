@@ -3,7 +3,7 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = hx
+	editor = nvim
 	excludesFile = ~/.gitignore
 [alias]
 	a = add
@@ -54,7 +54,7 @@
 [submodule]
 	recurse = true
 [ghq]
-	root = ~/dev
+	root = ~/Dev
 
 # delta
 [core]
