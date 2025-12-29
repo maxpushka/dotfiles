@@ -39,9 +39,11 @@ if [ "$SHELLNAME" == "zsh" ]; then
   ENABLE_CORRECTION="true"
 fi
 
+# go
 export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+# go end
 
 ##################################################
 # Completions
@@ -62,16 +64,18 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 alias sz='source ~/."$SHELLNAME"rc'
 alias mz='$EDITOR ~/."$SHELLNAME"rc'
 alias editgit='$EDITOR ~/.config/git/config'
-
+alias pwdc='wl-copy $(pwd)'
 
 alias l='ls -lha'
 alias ll='ls -lh'
 alias ls='eza --icons --group-directories-first --color=always --git' # --git
 alias ltree='ls --all --tree -L 3 --ignore-glob ".git/"'
 
+# Tools
 alias g="git"
 alias {n,nodejs}="node"
 alias v="nvim"
+alias hx="helix"
 alias gi="gitui --watcher"
 alias d="docker"
 alias dc="docker compose"
@@ -82,6 +86,7 @@ alias t="task"
 alias m="make"
 alias ca="cargo"
 
+# Go
 alias gor="go run"
 alias got="go test"
 alias gob="go build"
@@ -89,6 +94,9 @@ alias gov="go vet"
 alias goh="go help"
 alias gof="go fmt"
 alias gol="go list"
+
+# Python
+alias pyenv='source venv/bin/activate'
 
 ##################################################
 # Functions
@@ -176,4 +184,3 @@ function up {
 # if [[ $TERM == xterm* && -z $ZELLIJ_SESSION_NAME ]]; then
 #   zellij -s main || zellij attach main
 # fi
-
