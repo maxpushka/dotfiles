@@ -5,3 +5,11 @@
 -- fit in the normal config locations above can go here
 
 vim.opt.wrap = true
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    vim.keymap.del("n", "<leader>l")
+    vim.keymap.del("n", "<leader>cd")
+    vim.keymap.del("n", "<leader>cf")
+  end,
+})
