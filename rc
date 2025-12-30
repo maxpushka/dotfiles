@@ -3,7 +3,7 @@
 ##################################################
 
 export SHELLNAME=$(basename $SHELL)
-if [ "$SHELLNAME" == "zsh" ]; then
+if [ "$SHELLNAME" = "zsh" ]; then
   autoload -Uz compinit
   compinit
   if [ -s "$(command -v brew)" ]; then
@@ -27,7 +27,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # fi
 export EDITOR='nvim'
 
-if [ "$SHELLNAME" == "zsh" ]; then
+if [ "$SHELLNAME" = "zsh" ]; then
   # Uncomment the following line to use case-sensitive completion.
   # CASE_SENSITIVE="true"
 
