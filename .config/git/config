@@ -1,5 +1,7 @@
 [user]
 	name = Max Pushkarov
+[include]
+	path = ~/.config/git/config.private
 [init]
 	defaultBranch = main
 [core]
@@ -81,3 +83,13 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 # gh end
+
+# work settings
+[includeIf "gitdir:~/Dev/github.com/layer-3/**"]
+	path = ~/.config/git/config.work
+[ghq "https://github.com/layer-3/"]
+	root = ~/Dev/yellow
+[ghq "https://github.com/erc7824/"]
+	root = ~/Dev/yellow
+# work settings end
+
