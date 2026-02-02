@@ -67,7 +67,7 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 alias sz='source ~/."$SHELLNAME"rc'
 alias mz='$EDITOR ~/."$SHELLNAME"rc'
 alias editgit='$EDITOR ~/.config/git/config'
-alias pwdc='wl-copy $(pwd)'
+alias pwdc='echo -n $(pwd) | wl-copy'
 
 alias l='ls -lha'
 alias ll='ls -lh'
@@ -78,7 +78,6 @@ alias ltree='ls --all --tree -L 3 --ignore-glob ".git/"'
 alias g="git"
 alias {n,nodejs}="node"
 alias v="nvim"
-alias hx="helix"
 alias gi="gitui --watcher"
 alias d="docker"
 alias dc="docker compose"
