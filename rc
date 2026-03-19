@@ -86,14 +86,17 @@ alias ltree='ls --all --tree -L 3 --ignore-glob ".git/"'
 alias g="git"
 alias {n,nodejs}="node"
 alias v="nvim"
-alias gi="gitui --watcher"
+alias gi="tig" #"gitui --watcher"
+alias ig="tig" #"gitui --watcher"
 alias d="docker"
 alias dc="docker compose"
+alias lzd="lazydocker"
 alias k="kubectl"
 alias h="helm"
 alias tf="terraform"
 alias t="task"
 alias m="make"
+alias j="just"
 alias ca="cargo"
 
 # Go
