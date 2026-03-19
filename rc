@@ -67,7 +67,15 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 alias sz='source ~/."$SHELLNAME"rc'
 alias mz='$EDITOR ~/."$SHELLNAME"rc'
 alias editgit='$EDITOR ~/.config/git/config'
-alias pwdc='echo -n $(pwd) | wl-copy'
+if [ "$(uname)" = "Darwin" ]; then
+  alias clip='pbcopy'
+elif [ -n "$WAYLAND_DISPLAY" ]; then
+  alias clip='wl-copy'
+elif [ -n "$DISPLAY" ]; then
+  alias clip='xclip -selection clipboard'
+fi
+
+alias pwdc='echo -n $(pwd) | clip'
 
 alias l='ls -lha'
 alias ll='ls -lh'
@@ -160,6 +168,10 @@ function zw {
   else
     echo "No worktree selected."
   fi
+}
+
+function yf {
+  cat "$1" | clip
 }
 
 function zg {

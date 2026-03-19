@@ -1,3 +1,4 @@
 \.git
 \.luarc\.json
 dotfiles-private
+Makefile
