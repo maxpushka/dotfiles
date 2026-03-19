@@ -131,18 +131,6 @@ function c {
   code ${args}
 }
 
-# explorer function
-function e {
-  if [ -d "/mnt/c" ]; then
-    if [ $# -eq 0 ]; then
-      explorer.exe `wslpath -w "${PWD}/${dir}"`;
-    fi
-    for dir in "$@"; do
-      explorer.exe `wslpath -w "${PWD}/${dir}"`;
-    done
-  fi
-}
-
 # cd into any repo that is tracked with ghq
 function zr {
   local dir
