@@ -2,3 +2,4 @@
 \.luarc\.json
 dotfiles-private
 Makefile
+\.gitmodules
