@@ -1,5 +1,5 @@
 return {
-  "ggandor/leap.nvim",
+  "https://codeberg.org/andyg/leap.nvim",
   config = function()
     -- require("leap").add_default_mappings()
     vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
