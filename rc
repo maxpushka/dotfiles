@@ -123,17 +123,6 @@ hh () {
   "$@" --help | less
 }
 
-# VSCode
-function c {
-  local args=''
-  if [ $# -eq 0 ]; then
-    args='.'
-  else
-    args="$@"
-  fi
-  code ${args}
-}
-
 # cd into any repo that is tracked with ghq
 function zr {
   local dir
