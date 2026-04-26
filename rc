@@ -197,6 +197,17 @@ function up {
   cd ${init}
 }
 
+function clear-coauthored-by {
+  git filter-repo --message-callback '
+  import re
+  return re.sub(
+      br"\nCo-Authored-By:.*(?:\n|$)",
+      b"\n",
+      message
+  )
+  ' "$@"
+}
+
 # if [[ $TERM == xterm* && -z $ZELLIJ_SESSION_NAME ]]; then
 #   zellij -s main || zellij attach main
 # fi
