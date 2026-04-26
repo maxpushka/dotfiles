@@ -160,6 +160,22 @@ function zg {
   z "$repo_root" || return
 }
 
+# cd into any subdir of a git repo relative to repo root
+function zgd {
+  local repo_root
+  local target_dir
+
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || return 1
+
+  target_dir=$(find -L "$repo_root" -type d 2>/dev/null | sed "s|^$repo_root||" | fzf)
+
+  if [[ -n "$target_dir" ]]; then
+    z "${repo_root}${target_dir}"
+  else
+    echo "No dir selected."
+  fi
+}
+
 # fetch all update from all repos
 # that are tracked by ghq
 function up {
