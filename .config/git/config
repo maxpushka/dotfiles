@@ -90,3 +90,6 @@
 	path = ~/.config/git/config.work
 # work settings end
 
+[credential "https://gitea.com"]
+	helper = 
+	helper = !tea login helper
