@@ -1,2 +1,28 @@
+set mouse = true
 set mouse-wheel-cursor = yes
+set mouse-scroll = 3
+
 set tab-size = 2
+set line-graphics = utf-8
+set ignore-case = smart-case
+set wrap-search = yes
+
+set vertical-split = auto
+set split-view-width = 70%
+set focus-child = yes
+set send-child-enter = no
+
+set refresh-mode = auto
+set refresh-interval = 1
+
+set commit-order = auto
+set show-changes = yes
+set show-notes = yes
+set editor-line-number = yes
+
+set main-view = line-number:no,interval=5 id:yes date:relative-compact author:abbreviated commit-title:yes,graph,refs,overflow=no
+set blame-view = date:relative-compact author:abbreviated file-name:auto id:yes,color line-number:yes,interval=5 text
+set diff-view  = line-number:yes,interval=5 text
+set stage-view = line-number:yes,interval=5 text
+set log-view   = line-number:no,interval=5 text
+set pager-view = line-number:yes,interval=5 text
