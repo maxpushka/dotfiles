@@ -1,4 +1,4 @@
-set mouse = true
+set mouse = false
 set mouse-wheel-cursor = yes
 set mouse-scroll = 3
 
