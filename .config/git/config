@@ -18,6 +18,8 @@
 	cl = clone --recurse-submodules
 	co = checkout
 	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
 	d = diff
 	ds = diff --staged
 	dsc = "!f() { git ds \"$@\" | pbcopy; }; f"
