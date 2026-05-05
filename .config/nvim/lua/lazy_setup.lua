@@ -15,6 +15,7 @@ require("lazy").setup({
   { import = "plugins" },
 } --[[@as LazySpec]], {
   -- Configure any other `lazy.nvim` configuration options here
+  -- fallback colorscheme used only while lazy.nvim renders its install UI on first run; discarded after startup
   install = { colorscheme = { "astrotheme", "habamax" } },
   ui = { backdrop = 100 },
   performance = {

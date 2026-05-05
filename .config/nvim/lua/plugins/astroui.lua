@@ -10,8 +10,9 @@ return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
-    -- change colorscheme
-    colorscheme = "cyberdream", -- "astrodark",
+    -- single source of truth for colorscheme; astroui applies this at startup via vim.cmd.colorscheme
+    -- NOTE: theme.lua overrides this at runtime via auto-dark-mode callbacks — keep both in sync
+    colorscheme = "cyberdream",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     -- highlights = {
     --   init = { -- this table overrides highlights in all themes
